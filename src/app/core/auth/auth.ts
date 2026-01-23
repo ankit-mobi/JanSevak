@@ -10,7 +10,6 @@ import { environment } from '../../../environments/environment';
 export class Auth {
   private http = inject(HttpClient);
 
-  // private loginUrl = `${environment.apiUrl}/admin/login`;
   private loginUrl = `${environment.apiUrl}/admin/login`;
 
   constructor() {}

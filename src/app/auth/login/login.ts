@@ -42,10 +42,7 @@ export class Login {
         localStorage.setItem('authToken', response.accessToken);
         this.router.navigate(['/dashboard']);
       },
-      error: (err) => {
-        console.error('Login Failed', err);
-        alert('Login failed! Please check email/password.');
-      }
+     
     });
 
   }

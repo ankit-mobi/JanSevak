@@ -1,7 +1,8 @@
 <div class="login-container container-fluid min-vh-100 p-0">
   <div class="row g-0 min-vh-100">
 
-    <div class="welcome-section col-lg-6 d-none d-lg-flex align-items-center justify-content-center text-center text-white px-4 px-xl-5">
+    <div
+      class="welcome-section col-lg-6 d-none d-lg-flex align-items-center justify-content-center text-center text-white px-4 px-xl-5">
       <div>
         <div class="welcome-logo bg-white rounded-4 shadow mb-4 mx-auto">
           <img src="assets/logo/SP-foundation-logo.png" class="img-fluid" alt="Logo">
@@ -14,13 +15,14 @@
       </div>
     </div>
 
-    <div class="login-side-section col-12 col-lg-6 d-flex flex-column align-items-center justify-content-center bg-white px-3 px-sm-4">
+    <div
+      class="login-side-section col-12 col-lg-6 d-flex flex-column align-items-center justify-content-center bg-white px-3 px-sm-4">
 
       <div class="login-content w-100">
 
         <div class="logo-section mb-4 d-flex align-items-center bg-white text-orange rounded p-2">
           <h4 class="m-0 fw-bold text-dark d-flex align-items-center gap-2">
-            <img src="/assets/logo/site-logo.png" class="brand-logo" alt="site-logo"> 
+            <img src="/assets/logo/site-logo.png" class="brand-logo" alt="site-logo">
             <span>Jan<span class="text-orange-dark">Sevak</span></span>
           </h4>
         </div>
@@ -30,63 +32,46 @@
           <div class="red-line mb-4"></div>
 
           <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)" novalidate>
-            
+
             <div class="mb-3">
-              <input
-                type="email"
-                [(ngModel)]="loginData.email"
-                name="email"
-                #emailRef="ngModel"
-                required
-                email
+              <input type="email" [(ngModel)]="loginData.email" name="email" #emailRef="ngModel" required email
                 class="form-control form-control-lg"
                 [class.is-invalid]="emailRef.invalid && (emailRef.touched || loginForm.submitted)"
                 placeholder="Email Address">
 
               @if (emailRef.invalid && (emailRef.touched || loginForm.submitted)){
-                <div class="text-danger small mt-1 animate-error">
-                  @if (emailRef.errors?.['required']){
-                    <span><i class="bi bi-exclamation-circle"></i> Email is required.</span>
-                  }
-                  @if(emailRef.errors?.['email']){
-                    <span><i class="bi bi-exclamation-circle"></i> Please enter a valid email.</span>
-                  }
-                </div>
+              <div class="text-danger small mt-1 animate-error">
+                @if (emailRef.errors?.['required']){
+                <span><i class="bi bi-exclamation-circle"></i> Email is required.</span>
+                }
+                @if(emailRef.errors?.['email']){
+                <span><i class="bi bi-exclamation-circle"></i> Please enter a valid email.</span>
+                }
+              </div>
               }
             </div>
 
             <div class="mb-4 position-relative">
-              <input
-                [type]="showPassword ? 'text' : 'password'"
-                [(ngModel)]="loginData.password"
-                name="password"
-                #passRef="ngModel"
-                required
-                minlength="8"
-                class="form-control form-control-lg"
-                [class.is-invalid]="passRef.invalid && (passRef.touched || loginForm.submitted)"
-                placeholder="Password">
-              
-              <i class="bi password-icon" 
-                 [class.bi-eye]="!showPassword"
-                 [class.bi-eye-slash]="showPassword"
-                 (click)="togglePassword()"> 
+              <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="loginData.password" name="password"
+                #passRef="ngModel" required minlength="8" class="form-control form-control-lg"
+                [class.is-invalid]="passRef.invalid && (passRef.touched || loginForm.submitted)" placeholder="Password">
+
+              <i class="bi password-icon" [class.bi-eye]="!showPassword" [class.bi-eye-slash]="showPassword"
+                (click)="togglePassword()">
               </i>
 
               @if(passRef.invalid && (passRef.touched || loginForm.submitted)){
-                <div class="text-danger small mt-1 animate-error">
-                  <i class="bi bi-exclamation-circle"></i> Password is required (min 8 chars).
-                </div>
+              <div class="text-danger small mt-1 animate-error">
+                <i class="bi bi-exclamation-circle"></i> Password is required (min 8 chars).
+              </div>
               }
             </div>
 
-            <button
-              type="submit"
-              class="btn btn-success w-100 btn-pill mt-3">
+            <button type="submit" class="btn btn-success w-100 btn-pill mt-3">
               Login
             </button>
           </form>
-          
+
         </div>
 
       </div>

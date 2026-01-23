@@ -1,45 +1,69 @@
-<div class="sidebar-container d-flex flex-column p-3 text-white">
+<div class="sidebar-container d-flex flex-column p-3 text-white" 
+     [class.collapsed]="isCollapsed()"
+     [class.mobile-show]="showMobileMenu()">
   
-  <div class="logo-section mb-4 d-flex align-items-center bg-white text-orange rounded p-2">
-    <h4 class="m-0 fw-bold text-dark">
-     <img src="/assets/logo/site-logo.png" height="40px" alt="site-logo"> Jan<span class="text-orange">Sevak</span></h4>
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    
+    <div class="logo-section bg-white text-orange rounded p-2 d-flex align-items-center justify-content-center overflow-hidden">
+      <img src="/assets/logo/site-logo.png" height="30px" alt="logo">
+      
+      @if (!isCollapsed()) {
+        <h4 class="m-0 fw-bold text-dark ms-2 logo-text">
+          Jan<span class="text-orange">Sevak</span>
+        </h4>
+      }
+    </div>
+
+    <button class="btn btn-link text-white p-0 ms-2 d-none d-md-block" (click)="toggleCollapse()">
+      <i class="bi" [class.bi-list]="isCollapsed()" [class.bi-x-lg]="!isCollapsed()"></i>
+    </button>
+  
+    <button class="btn btn-link text-white p-0 ms-2 d-block d-md-none" (click)="toggleMobile()">
+      <i class="bi bi-x-lg"></i>
+    </button>
   </div>
 
   <ul class="nav nav-pills flex-column mb-auto">
     
     <li class="nav-item">
-      <a href="#" class="nav-link active-link mb-2">
-        <i class="bi bi-grid-fill me-2"></i> Dashboard
+      <a href="#" class="nav-link active-link mb-2 d-flex align-items-center" title="Dashboard">
+        <i class="bi bi-grid-fill icon-fixed"></i> 
+        @if (!isCollapsed()) { <span class="link-text">Dashboard</span> }
       </a>
     </li>
 
     <li class="nav-item">
-      <a href="#" class="nav-link text-white mb-2">
-        <i class="bi bi-file-earmark-text me-2"></i> Complaint Management
+      <a href="#" class="nav-link text-white mb-2 d-flex align-items-center" title="Complaint Management">
+        <i class="bi bi-file-earmark-text icon-fixed"></i>
+        @if (!isCollapsed()) { <span class="link-text">Complaint Management</span> }
       </a>
     </li>
 
     <li class="nav-item">
-      <a href="#" class="nav-link text-white mb-2">
-        <i class="bi bi-bus-front me-2"></i> E-Riksha Shuttle
+      <a href="#" class="nav-link text-white mb-2 d-flex align-items-center" title="E-Riksha Shuttle">
+        <i class="bi bi-bus-front icon-fixed"></i>
+        @if (!isCollapsed()) { <span class="link-text">E-Riksha Shuttle</span> }
       </a>
     </li>
     
     <li class="nav-item">
-      <a href="#" class="nav-link text-white mb-2">
-        <i class="bi bi-calendar-event me-2"></i> Events
+      <a href="#" class="nav-link text-white mb-2 d-flex align-items-center" title="Events">
+        <i class="bi bi-calendar-event icon-fixed"></i>
+        @if (!isCollapsed()) { <span class="link-text">Events</span> }
       </a>
     </li>
 
     <li class="nav-item">
-      <a href="#" class="nav-link text-white mb-2">
-        <i class="bi bi-people"></i> User Management
+      <a href="#" class="nav-link text-white mb-2 d-flex align-items-center" title="User Management">
+        <i class="bi bi-people icon-fixed"></i>
+        @if (!isCollapsed()) { <span class="link-text">User Management</span> }
       </a>
     </li>
 
     <li class="nav-item">
-      <a href="#" class="nav-link text-white mb-2">
-        <i class="bi bi-megaphone me-2"></i> Report
+      <a href="#" class="nav-link text-white mb-2 d-flex align-items-center" title="Report">
+        <i class="bi bi-megaphone icon-fixed"></i>
+        @if (!isCollapsed()) { <span class="link-text">Report</span> }
       </a>
     </li>
 
@@ -47,8 +71,13 @@
 
   <div class="mt-auto">
     <hr>
-    <a href="javascript:void(0)" (click)="logout()" class="nav-link text-white">
-      <i class="bi bi-box-arrow-right me-2"></i> Logout
+    <a href="javascript:void(0)" (click)="logout()" class="nav-link text-white d-flex align-items-center" title="Logout">
+      <i class="bi bi-box-arrow-right icon-fixed"></i>
+      @if (!isCollapsed()) { <span class="link-text">Logout</span> }
     </a>
   </div>
 </div>
+
+@if (showMobileMenu()) {
+  <div class="mobile-backdrop" (click)="toggleMobile()"></div>
+}

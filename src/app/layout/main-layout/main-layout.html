@@ -1,26 +1,42 @@
-<div class="d-flex w-100">
+<div class="d-flex w-100 position-relative">
   
-  <app-sidebar></app-sidebar>
+  <app-sidebar #sidebarRef></app-sidebar>
 
-  <div class="d-flex flex-column flex-grow-1">
+  <div class="d-flex flex-column flex-grow-1" style="min-height: 100vh;">
     
-    <header class="d-flex justify-content-between align-items-center p-4 border-bottom">
-      <h3 class="fw-bold text-orange m-0">Mission Smart Viman Nagar</h3>
+    <header class="d-flex justify-content-between align-items-center p-4 bg-white sticky-top">
       
       <div class="d-flex align-items-center gap-3">
-        <div class="text-muted fw-bold text-orange">
-          <i class="bi bi-calendar me-1 text-orange"></i>{{currentDate | date: 'dd/MM/yyyy'}}
+        
+        <button 
+          class="btn btn-light d-md-none text-orange border-0 shadow-sm" 
+          (click)="sidebarRef.toggleMobile()">
+          <i class="bi bi-list fs-4"></i>
+        </button>
+
+        <h3 class="fw-bold text-orange m-0">Mission Smart Viman Nagar</h3>
+      </div>
+      
+      <div class="d-flex align-items-center gap-3">
+        
+        <div class="text-muted fw-bold text-orange d-none d-sm-block">
+          <i class="bi bi-calendar me-1 text-orange"></i>
+          {{ currentDate | date: 'dd/MM/yyyy' }}
         </div>
-        <button class="btn btn-light rounded-circle"><i class="bi bi-bell"></i></button>
+
+        <button class="btn btn-light rounded-circle shadow-sm position-relative">
+          <i class="bi bi-bell"></i>
+          <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+        </button>
 
         <a routerLink="/profile" class="d-inline-block">
-                  <img src="https://ui-avatars.com/api/?name=" class="rounded-circle" width="40" height="40">
+           <img src="https://ui-avatars.com/api/?name=Admin" class="rounded-circle border" width="40" height="40">
         </a>
 
       </div>
     </header>
 
-    <div class="p-4">
+    <div class="p-4 bg-light flex-grow-1">
       <router-outlet></router-outlet> 
     </div>
 
