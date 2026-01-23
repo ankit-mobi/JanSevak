@@ -1,0 +1,81 @@
+<div class="container-fluid p-0">
+  
+  <div class="d-flex align-items-center bg-white p-3 rounded mb-4 shadow-sm">
+    <button class="btn btn-light rounded-circle me-3" (click)="goBack()">
+      <i class="bi bi-arrow-left"></i>
+    </button>
+    <h5 class="fw-bold m-0">Admin Profile Details</h5>
+  </div>
+
+  <div class="card border-0 shadow-sm p-4" style="border-radius: 15px;">
+    <div class="row">
+      
+      <div class="col-md-4 mb-4">
+        <label class="fw-bold mb-2">Add Profile Image</label>
+        
+        <div class="upload-box d-flex flex-column align-items-center justify-content-center text-center p-4">
+          <div class="icon-circle bg-light mb-3">
+            <i class="bi bi-image fs-3 text-secondary"></i>
+          </div>
+          <p class="mb-1 text-muted">Drag & Drop Image Here Or</p>
+          <a href="javascript:void(0)" class="text-primary fw-bold text-decoration-none">Select</a>
+          <input type="file" class="file-input">
+        </div>
+      </div>
+
+      <div class="col-md-8">
+        <div class="row g-3">
+          
+          <div class="col-12">
+            <label class="form-label small text-muted">Full Name</label>
+            <div class="input-group">
+              <span class="input-group-text bg-light border-end-0"><i class="bi bi-person"></i></span>
+              <input type="text" class="form-control bg-light border-start-0" [(ngModel)]="profile.name">
+              <span class="input-group-text bg-light border-start-0 text-primary cursor-pointer"><i class="bi bi-pencil-fill"></i> Edit</span>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label small text-muted">Email ID</label>
+            <div class="input-group">
+              <span class="input-group-text bg-light border-end-0"><i class="bi bi-envelope"></i></span>
+              <input type="email" class="form-control bg-light border-start-0" [(ngModel)]="profile.email">
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label small text-muted">Contact Number</label>
+            <div class="input-group">
+              <span class="input-group-text bg-light border-end-0"><i class="bi bi-telephone"></i></span>
+              <input type="text" class="form-control bg-light border-start-0" [(ngModel)]="profile.phone">
+            </div>
+          </div>
+
+          <!-- <div class="col-md-6">
+            <label class="form-label small text-muted">Gender</label>
+            <select class="form-select bg-light" [(ngModel)]="profile.gender">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div> -->
+
+          <!-- <div class="col-md-6">
+            <label class="form-label small text-muted">Select Country</label>
+            <select class="form-select bg-light" [(ngModel)]="profile.country">
+              <option value="India">India</option>
+              <option value="USA">USA</option>
+            </select>
+          </div> -->
+
+        </div>
+      </div>
+
+      <div class="col-12 mt-4">
+        <label class="form-label small text-muted">Bio</label>
+        <textarea class="form-control bg-light" rows="4" placeholder="Add a Bio" [(ngModel)]="profile.bio"></textarea>
+      </div>
+
+    </div>
+  </div>
+
+</div>

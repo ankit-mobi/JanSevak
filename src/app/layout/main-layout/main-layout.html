@@ -1,0 +1,28 @@
+<div class="d-flex w-100">
+  
+  <app-sidebar></app-sidebar>
+
+  <div class="d-flex flex-column flex-grow-1">
+    
+    <header class="d-flex justify-content-between align-items-center p-4 border-bottom">
+      <h3 class="fw-bold text-orange m-0">Mission Smart Viman Nagar</h3>
+      
+      <div class="d-flex align-items-center gap-3">
+        <div class="text-muted fw-bold text-orange">
+          <i class="bi bi-calendar me-1 text-orange"></i>{{currentDate | date: 'dd/MM/yyyy'}}
+        </div>
+        <button class="btn btn-light rounded-circle"><i class="bi bi-bell"></i></button>
+
+        <a routerLink="/profile" class="d-inline-block">
+                  <img src="https://ui-avatars.com/api/?name=" class="rounded-circle" width="40" height="40">
+        </a>
+
+      </div>
+    </header>
+
+    <div class="p-4">
+      <router-outlet></router-outlet> 
+    </div>
+
+  </div>
+</div>

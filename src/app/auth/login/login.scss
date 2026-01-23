@@ -1,0 +1,142 @@
+/* GLOBAL CONTAINER */
+.login-container {
+  overflow-x: hidden;
+  background-color: #fff;
+}
+
+/* --- LEFT PANEL --- */
+.welcome-section {
+  background: linear-gradient(135deg, #F8904AE5, #F8904A);
+  border-top-right-radius: 60px;
+  border-bottom-right-radius: 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.welcome-logo {
+  width: 160px;
+  height: 160px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- RIGHT PANEL --- */
+.login-content {
+  max-width: 420px;
+  width: 100%;
+}
+
+/* BRANDING */
+.brand-logo {
+  height: 40px;
+  width: auto;
+}
+.text-orange-dark {
+  color: #F8904A;
+}
+
+/* --- LOGIN CARD --- */
+.login-card {
+  background: #fff;
+  transition: all 0.3s ease;
+}
+
+.red-line {
+  width: 50px;
+  height: 4px;
+  background-color: #F8904A;
+  border-radius: 2px;
+}
+
+/* --- FORM ELEMENTS --- */
+.form-control {
+  border-radius: 12px;
+  background-color: #f7f7f7;
+  border: 1px solid transparent;
+  padding: 0.75rem 1rem;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 4px rgba(248, 144, 74, 0.15); /* Soft orange glow */
+  border-color: #F8904A;
+  background-color: #fff;
+}
+
+.password-icon {
+  position: absolute;
+  right: 16px;
+  top: 16px; 
+  cursor: pointer;
+  color: #999;
+  z-index: 5;
+}
+
+/* --- BUTTONS --- */
+.btn-success {
+  background-color: #6bc940;
+  border: none;
+  border-radius: 50px;
+  padding: 12px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: background-color 0.2s;
+}
+
+.btn-success:hover {
+  background-color: #5fb836;
+}
+
+.btn-success:active {
+  transform: scale(0.98);
+}
+
+/* --- ANIMATION --- */
+.animate-error {
+  animation: slideDown 0.3s ease-out forwards;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- RESPONSIVE FIXES --- */
+
+/* Mobile Devices (Portrait) */
+@media (max-width: 576px) {
+  .welcome-section {
+    display: none !important; /* Force hide on small screens */
+  }
+
+  .login-side-section {
+    padding: 0 !important; /* Maximize space */
+    background-color: #fff;
+  }
+  
+  .login-card {
+    box-shadow: none !important; 
+    padding: 1.5rem 1rem; 
+    border-radius: 0; 
+  }
+
+  .login-content {
+    max-width: 100%; 
+  }
+  
+  .brand-logo {
+    height: 32px; 
+  }
+}
+
+/* Tablet / Small Laptop */
+@media (min-width: 577px) and (max-width: 991px) {
+  .login-container {
+    background-color: #f8f9fa; 
+  }
+  
+  .login-side-section {
+    background-color: transparent; 
+  }
+}

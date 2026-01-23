@@ -1,0 +1,34 @@
+.sidebar-container {
+  width: 260px;
+  height: 100vh; /* Full Height */
+  background: linear-gradient(180deg, #F89756 0%, #F89756 100%); /* That Orange Gradient */
+  box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+
+  border-top-right-radius: 22px;
+  border-bottom-right-radius: 22px;
+}
+
+.text-orange {
+  color: #ff6b35;
+}
+
+/* Style the "Active" button (the Green Dashboard button in your image) */
+.active-link {
+  background-color: #6bc940 !important; /* The Green Color */
+  color: white !important;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  border-radius: 8px;
+}
+
+.nav-link {
+  font-size: 0.95rem;
+  padding: 12px 15px;
+  border-radius: 8px;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Slight white tint on hover */
+  }
+}
+
+
