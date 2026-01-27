@@ -44,7 +44,24 @@ export const routes: Routes = [
             {
                 path: 'shuttle/view/:id',
                 loadComponent: () => import('./shuttle/shuttle-view/shuttle-view').then(m => m.ShuttleView)
+            },
+            {
+                path: 'events',
+                loadComponent: () => import('./events/event-list/event-list').then(m => m.EventList)
+            },
+            {
+                path: 'events/new',
+                loadComponent: () => import('./events/event-form/event-form').then(m => m.EventForm)
+            },
+            {
+                path: 'events/edit/:id',
+                loadComponent: () => import('./events/event-form/event-form').then(m => m.EventForm)
+            },
+            {
+                path: 'events/view/:id',
+                loadComponent: () => import('./events/event-view/event-view').then(m => m.EventView)
             }
+
         ]
     },
     

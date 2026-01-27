@@ -53,7 +53,10 @@
     </li>
     
     <li class="nav-item"> 
-      <a href="#" class="nav-link text-white mb-2 d-flex align-items-center" title="Events"> 
+      <a routerLink="/events"
+         routerLinkActive="active-link" 
+         class="nav-link text-white mb-2 d-flex align-items-center" 
+         title="Events"> 
         <i class="bi bi-calendar-event icon-fixed"></i> 
         @if (!isCollapsed()) { <span class="link-text">Events</span> } 
       </a> 

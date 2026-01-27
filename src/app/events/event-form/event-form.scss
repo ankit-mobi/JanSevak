@@ -1,0 +1,18 @@
+.form-control {
+  border: 1px solid #eee;
+  padding: 10px 15px;
+  &:focus {
+    box-shadow: none;
+    border-color: #6bc940;
+    background-color: white;
+  }
+}
+
+.border-dashed {
+  border: 2px dashed #ddd;
+  transition: all 0.3s;
+  &:hover {
+    border-color: #6bc940;
+    background-color: #f8fff9;
+  }
+}
