@@ -28,6 +28,22 @@ export const routes: Routes = [
             {
                 path: 'complaints/view/:id',
                 loadComponent: () => import('./complaints/complaint-detail/complaint-detail').then(m => m.ComplaintDetail)
+            },
+            {
+                path: 'shuttle',
+                loadComponent: () => import('./shuttle/shuttle-list/shuttle-list').then(m => m.ShuttleList)
+            },
+            {
+                path: 'shuttle/new',
+                loadComponent: () => import('./shuttle/shuttle-form/shuttle-form').then(m => m.ShuttleForm)
+            },
+            {
+                path: 'shuttle/edit/:id',
+                loadComponent: () => import('./shuttle/shuttle-form/shuttle-form').then(m => m.ShuttleForm)
+            },
+            {
+                path: 'shuttle/view/:id',
+                loadComponent: () => import('./shuttle/shuttle-view/shuttle-view').then(m => m.ShuttleView)
             }
         ]
     },

@@ -1,0 +1,63 @@
+<div class="container-fluid p-0">
+  
+  <div class="bg-white p-3 rounded mb-4 shadow-sm">
+    <button class="btn btn-light rounded-circle me-3" (click)="goBack()"><i class="bi bi-arrow-left"></i></button>
+    <span class="fw-bold fs-5">{{ isEditMode ? 'Edit E-Riksha Route' : 'Create New Route' }}</span>
+  </div>
+
+  <div class="card border-0 shadow-sm p-5" style="border-radius: 15px;">
+    
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      
+      <div class="mb-4">
+        <label class="fw-bold mb-2">Route Name</label>
+        <input type="text" formControlName="name" class="form-control bg-light" placeholder="e.g. Route A - Main City Loop">
+      </div>
+
+      <div class="mb-4">
+        <label class="fw-bold mb-2">Service Available Time</label>
+        <input type="text" formControlName="serviceTime" class="form-control bg-light" placeholder="00:00 to 00:00">
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <label class="fw-bold mb-2">Operating Days</label>
+          <input type="text" formControlName="operatingDays" class="form-control bg-light">
+        </div>
+        <div class="col-md-6">
+          <label class="fw-bold mb-2">Frequency</label>
+          <input type="text" formControlName="frequency" class="form-control bg-light">
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+           <label class="fw-bold">Pickup & Drop points</label>
+           <button type="button" (click)="addStop()" class="btn btn-link text-orange text-decoration-none fw-bold">
+             <i class="bi bi-plus-circle me-1"></i> Add point
+           </button>
+        </div>
+
+        <div formArrayName="stops">
+          @for (control of stopsArray.controls; track $index) {
+            <div class="input-group mb-2">
+              <input [formControlName]="$index" type="text" class="form-control bg-light" [placeholder]="'Pickup point ' + ($index + 1)">
+              <button type="button" (click)="removeStop($index)" class="btn btn-outline-danger">
+                <i class="bi bi-x-lg"></i>
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="text-end mt-5">
+        <button type="button" (click)="goBack()" class="btn btn-outline-secondary rounded-pill px-4 me-2">Cancel</button>
+        <button type="submit" class="btn btn-success rounded-pill px-5">
+          {{ isEditMode ? 'Update Route' : 'Create Route' }}
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</div>

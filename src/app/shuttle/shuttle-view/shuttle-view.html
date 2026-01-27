@@ -1,0 +1,58 @@
+@if (route(); as r){
+
+
+<div class="container-fluid p-0">
+
+  <div class="bg-white p-3 rounded mb-4 shadow-sm">
+    <button class="btn btn-light rounded-circle me-3" (click)="goBack()"><i class="bi bi-arrow-left"></i></button>
+    <span class="fw-bold fs-5">Route Details</span>
+  </div>
+
+  <div class="card border-0 shadow-sm p-4" style="border-radius: 15px;">
+    
+    <div class="d-flex align-items-center gap-3 mb-4">
+      <span class="badge bg-light text-dark border px-3 py-2 fs-6">{{ r._id }}</span>
+      <h5 class="fw-bold m-0">{{ r.routeName }}</h5>
+    </div>
+
+    <div class="row mb-5">
+      <div class="col-md-4 mb-3">
+        <div class="d-flex align-items-center text-muted mb-1"><i class="bi bi-clock me-2"></i> Service time</div>
+        <div class="fw-bold">{{ r.serviceTimings }}</div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="d-flex align-items-center text-muted mb-1"><i class="bi bi-stopwatch me-2"></i> Frequency</div>
+        <div class="fw-bold">{{ r.frequency }}</div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="d-flex align-items-center text-muted mb-1"><i class="bi bi-calendar-week me-2"></i> Operating Days</div>
+        <div class="fw-bold">{{ r.operationalDays }}</div>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <h6 class="fw-bold text-muted mb-3"><i class="bi bi-geo-alt me-2"></i> Pickup & Drop Location</h6>
+      
+      <div class="d-flex flex-column gap-2 ms-2">
+        @for (stop of r.pickupAndDropPoints; track stop; let i = $index) {
+          <div class="d-flex align-items-center p-3 rounded bg-orange-light border border-orange-subtle" style="max-width: 600px;">
+            <div class="badge rounded-circle bg-orange text-white me-3" style="width: 25px; height: 25px; line-height: 20px;">
+              {{ i + 1 }}
+            </div>
+            <span class="fw-bold">{{ stop }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <button [routerLink]="['/shuttle/edit', r._id]" class="btn btn-success rounded-pill px-4 me-2">
+        <i class="bi bi-pencil-fill me-1"></i> Edit
+      </button>
+      <button (click)="goBack()" class="btn btn-outline-secondary rounded-pill px-4">Cancel</button>
+    </div>
+
+  </div>
+</div>
+
+}
