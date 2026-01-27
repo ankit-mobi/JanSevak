@@ -1,0 +1,82 @@
+<div class="container-fluid p-0" *ngIf="complaint() as c">
+  
+  <div class="bg-white p-3 rounded mb-4 shadow-sm d-flex align-items-center">
+    <button class="btn btn-light rounded-circle me-3" (click)="goBack()">
+      <i class="bi bi-arrow-left"></i>
+    </button>
+    <h5 class="fw-bold m-0">Complaint Details</h5>
+  </div>
+
+  <div class="row">
+    
+    <div class="col-md-8">
+      <div class="card border-0 shadow-sm p-4" style="border-radius: 15px;">
+        <h4 class="fw-bold mb-3">{{ c.title }}</h4>
+        <div class="mb-4">
+          <img [src]="c.image" class="img-fluid rounded-4 w-100 object-fit-cover" style="height: 350px;">
+        </div>
+        <div class="d-flex gap-4 mb-4 text-muted">
+          <div><i class="bi bi-geo-alt text-orange me-2"></i> {{ c.location }}</div>
+          <div><i class="bi bi-calendar-event text-orange me-2"></i> {{ c.date }}</div>
+        </div>
+        <hr class="text-muted opacity-25">
+        <div class="mb-3">
+          <h6 class="fw-bold">Description</h6>
+          <p class="text-muted">{{ c.description }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      
+      <div class="card border-0 shadow-sm p-4" style="border-radius: 15px;">
+        
+        <div class="mb-4">
+          <label class="fw-bold mb-2">Status</label>
+          <select class="form-select bg-light" [(ngModel)]="selectedStatus">
+            <option value="Pending">Pending</option>
+            <option value="In-Progress">In-Progress</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+
+        <div class="mb-4">
+          <h6 class="fw-bold mb-3">Reporter Information</h6>
+          <div class="d-flex align-items-center mb-2">
+            <i class="bi bi-person text-muted me-2"></i>
+            <span class="fw-bold">{{ c.reporter }}</span>
+          </div>
+          <div class="d-flex align-items-center">
+            <i class="bi bi-telephone text-muted me-2"></i>
+            <span>{{ c.contact }}</span>
+          </div>
+        </div>
+
+        <div class="mb-4">
+           <h6 class="fw-bold mb-3">Complaint Closure Photo</h6>
+           <div class="upload-box position-relative text-center p-4 rounded border-dashed bg-light">
+             <i class="bi bi-cloud-upload fs-3 text-muted"></i>
+             <p class="small text-muted mb-0">Drag & Drop Image Here Or <a href="javascript:void(0)" class="text-primary fw-bold text-decoration-none">Select</a></p>
+             <input type="file" class="file-input" style="opacity: 0; position: absolute; top:0; left:0; width:100%; height:100%; cursor: pointer;">
+           </div>
+        </div>
+
+        <div class="mb-3">
+          <h6 class="fw-bold mb-3">Comments & Updates</h6>
+          <textarea class="form-control bg-light" rows="4" 
+                    placeholder="Add a comments or updates" 
+                    [(ngModel)]="newComment"></textarea>
+        </div>
+      
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="text-end mt-4 mb-5">
+    <button class="btn btn-outline-secondary rounded-pill px-4 me-2" (click)="goBack()">Cancel</button>
+    <button class="btn btn-success rounded-pill px-5" (click)="submitUpdates()">Update</button>
+  </div>
+
+</div>

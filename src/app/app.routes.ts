@@ -20,6 +20,14 @@ export const routes: Routes = [
             {
                 path: 'profile',
                 loadComponent: () => import('./profile/profile').then(m => m.Profile),
+            },
+            {
+                path: 'complaints',
+                loadComponent: () => import('./complaints/complaint-list/complaint-list').then(m => m.ComplaintList)
+            },
+            {
+                path: 'complaints/view/:id',
+                loadComponent: () => import('./complaints/complaint-detail/complaint-detail').then(m => m.ComplaintDetail)
             }
         ]
     },

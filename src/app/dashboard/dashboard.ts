@@ -1,9 +1,11 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ComplaintStats, DashboardService } from './dashboard.service';
+import { CommonModule } from '@angular/common';
+import { Complaint } from '../complaints/complaint-service';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
 })

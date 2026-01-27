@@ -1,0 +1,35 @@
+.text-orange {
+  color: #ff6b35;
+}
+
+.form-select, .form-control {
+  border: 1px solid #eee;
+  font-size: 0.9rem;
+  padding: 10px 15px;
+  
+  &:focus {
+    box-shadow: none;
+    border-color: #6bc940;
+    background-color: white;
+  }
+}
+
+/* Styling for the upload box area */
+.border-dashed {
+  border: 2px dashed #ddd;
+  transition: all 0.3s;
+  
+  &:hover {
+    border-color: #6bc940;
+    background-color: #f8fff9; /* Slight green tint on hover */
+  }
+}
+
+.btn-success {
+  background-color: #6bc940;
+  border: none;
+  
+  &:hover {
+    background-color: darken(#6bc940, 5%);
+  }
+}

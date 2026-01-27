@@ -9,7 +9,7 @@ $anim-speed: 0.3s;
   width: $sidebar-width;
   height: 100vh;
   background: $orange-gradient;
-  box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
   border-top-right-radius: 22px;
   border-bottom-right-radius: 22px;
   transition: all $anim-speed ease-in-out;
@@ -22,10 +22,19 @@ $anim-speed: 0.3s;
   /* Collapsed State (Desktop) */
   &.collapsed {
     width: $sidebar-collapsed-width;
-    
-    .nav-link { justify-content: center; }
-    .logo-section { padding: 0.5rem !important; }
-    .logo-text, .link-text { display: none; }
+
+    .nav-link {
+      justify-content: center;
+    }
+
+    .logo-section {
+      padding: 0.5rem !important;
+    }
+
+    .logo-text,
+    .link-text {
+      display: none;
+    }
   }
 }
 
@@ -34,8 +43,10 @@ $anim-speed: 0.3s;
   .sidebar-container {
     /* 1. Default State: HIDDEN ("nan") */
     position: fixed;
-    left: -100px; /* Push off screen */
-    width: $sidebar-collapsed-width; /* Mobile is always narrow (Icon only) */
+    left: -100px;
+    /* Push off screen */
+    width: $sidebar-collapsed-width;
+    /* Mobile is always narrow (Icon only) */
     opacity: 0;
     visibility: hidden;
   }
@@ -46,14 +57,24 @@ $anim-speed: 0.3s;
     opacity: 1;
     visibility: visible;
     /* Force collapse styles even if isCollapsed signal is false */
-    width: $sidebar-collapsed-width !important; 
+    width: $sidebar-collapsed-width !important;
   }
 
   /* Force elements to look "collapsed" on mobile */
   .sidebar-container.mobile-show {
-    .link-text, .logo-text { display: none !important; }
-    .nav-link { justify-content: center; }
-    .logo-section { justify-content: center; }
+
+    .link-text,
+    .logo-text {
+      display: none !important;
+    }
+
+    .nav-link {
+      justify-content: center;
+    }
+
+    .logo-section {
+      justify-content: center;
+    }
   }
 }
 
@@ -69,7 +90,7 @@ $anim-speed: 0.3s;
   border-radius: 8px;
   color: white;
   transition: background-color 0.2s;
-  
+
   &:hover {
     background-color: rgba(255, 255, 255, 0.2);
   }
@@ -79,15 +100,15 @@ $anim-speed: 0.3s;
   background-color: #6bc940 !important;
   color: white !important;
   font-weight: bold;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .icon-fixed {
   font-size: 1.2rem;
-  min-width: 30px; 
+  min-width: 30px;
   text-align: center;
   /* Add margin only if text exists */
-  margin-right: 0; 
+  margin-right: 0;
 }
 
 /* Add margin back only on Desktop when Expanded */
@@ -100,8 +121,10 @@ $anim-speed: 0.3s;
 /* Mobile Backdrop (Dark background when menu is open) */
 .mobile-backdrop {
   position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  background: rgba(0,0,0,0.5);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
   z-index: 999;
 }
