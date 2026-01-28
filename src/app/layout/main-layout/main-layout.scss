@@ -1,3 +1,57 @@
+// Brand Colors
+$text-orange: #F89756;
+$primary-gradient: linear-gradient(180deg, #77FE0D 0%, #4BAA00 100%);
+$bg-dashboard: #f9fafb;
+
 .text-orange {
-  color: #F89756;
+  color: $text-orange;
+}
+
+.bg-dashboard-light {
+  background-color: $bg-dashboard;
+}
+
+.border-orange {
+  border: 2px solid $text-orange;
+}
+
+// Global Green Gradient Class
+// Use this for any "Update", "View", or "Add" buttons across your project
+.btn-update-gradient {
+  background: $primary-gradient !important;
+  border: none !important;
+  color: white !important;
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(75, 170, 0, 0.3);
+    color: white !important;
+  }
+}
+
+.date-badge {
+  background-color: rgba($text-orange, 0.05);
+  border: 1px solid rgba($text-orange, 0.1);
+}
+
+.icon-btn {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+// Responsive typography for title
+@media (max-width: 576px) {
+  .title-responsive {
+    font-size: 1.1rem;
+  }
 }

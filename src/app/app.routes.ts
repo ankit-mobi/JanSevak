@@ -60,6 +60,14 @@ export const routes: Routes = [
             {
                 path: 'events/view/:id',
                 loadComponent: () => import('./events/event-view/event-view').then(m => m.EventView)
+            },
+            {
+                path: 'users',
+                loadComponent: () => import('./users/user-list/user-list').then(m => m.UserList)
+            },
+            {
+                path: 'users/view/:uid',
+                loadComponent: () => import('./users/user-view/user-view').then(m => m.UserView)
             }
 
         ]

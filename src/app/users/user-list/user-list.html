@@ -1,0 +1,99 @@
+<div class="container-fluid p-0">
+  <div class="bg-white p-3 rounded-4 mb-4 shadow-sm border-0">
+    <h5 class="fw-bold m-0 text-dark">User Management</h5>
+    <p class="text-muted small m-0">Manage registered users and their access</p>
+  </div>
+
+  <div class="bg-white p-3 rounded-4 mb-4 shadow-sm d-flex align-items-center flex-wrap gap-2 border-0">
+    
+    <button class="btn btn-sm filter-pill rounded-pill px-4" 
+            [class.active-gradient]="currentRole() === 'Citizen'"
+            (click)="setRole('Citizen')">Citizen</button>
+
+    <button class="btn btn-sm filter-pill rounded-pill px-4"
+            [class.active-gradient]="currentRole() === 'Volunteer'"
+            (click)="setRole('Volunteer')">Volunteer</button>
+
+    <button class="btn btn-sm filter-pill rounded-pill px-4"
+            [class.active-gradient]="currentRole() === 'Employer'"
+            (click)="setRole('Employer')">Employer</button>
+
+    <button class="btn btn-sm filter-pill rounded-pill px-4"
+            [class.active-gradient]="currentRole() === 'Job seeker'"
+            (click)="setRole('Job seeker')">Job seeker</button>
+  </div>
+
+  <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+    
+    @if (isLoading()) {
+      <div class="text-center p-5">
+        <div class="spinner-border text-primary" role="status"></div>
+        <p class="mt-2 text-muted">Loading {{ currentRole() }}s...</p>
+      </div>
+    } 
+    
+    @else {
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light-header">
+            <tr>
+              <th class="py-3 ps-4 border-0 text-secondary small text-uppercase fw-bold">Sr.no</th>
+              <th class="py-3 border-0 text-secondary small text-uppercase fw-bold">Name</th>
+              
+              @if (currentRole() === 'Employer') {
+                <th class="py-3 border-0 text-secondary small text-uppercase fw-bold">Company</th>
+              }
+              @if (currentRole() === 'Volunteer') {
+                <th class="py-3 border-0 text-secondary small text-uppercase fw-bold">Skills</th>
+              }
+
+              <th class="py-3 border-0 text-secondary small text-uppercase fw-bold text-center">Email ID</th>
+              <th class="py-3 border-0 text-secondary small text-uppercase fw-bold text-center">Reg. Date</th>
+              <th class="py-3 border-0 text-secondary small text-uppercase fw-bold text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (user of users(); track user._id; let i = $index) {
+              <tr>
+                <td class="ps-4 fw-bold text-muted">{{ i + 1 }}</td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <img [src]="user.avatar" 
+                         class="rounded-circle me-3 shadow-sm border" 
+                         width="40" height="40" alt="avatar">
+                    <div>
+                      <span class="fw-bold text-dark d-block">{{ user.name }}</span>
+                      <small class="text-muted" style="font-size: 0.75rem;">{{ user.uid | slice:0:8 }}...</small>
+                    </div>
+                  </div>
+                </td>
+
+                @if (currentRole() !== 'Citizen' && currentRole() !== 'Job seeker') {
+                  <td class="text-muted small">{{ user.extraInfo || '-' }}</td>
+                }
+
+                <td class="text-center text-muted small">{{ user.email }}</td>
+                
+                <td class="text-center text-muted small">
+                  {{ user.createdAt ? (user.createdAt | date:'dd/MM/yy') : '-' }}
+                </td>
+                
+                <td class="text-center">
+                  <div class="d-flex justify-content-center gap-2">
+                    <button [routerLink]="['/users/view', user.uid]" class="btn btn-action-circle">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="7" class="text-center py-5 text-muted">No {{ currentRole() }}s found.</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+</div>

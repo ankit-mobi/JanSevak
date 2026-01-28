@@ -1,18 +1,19 @@
-import { CommonModule, Location } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule, Location } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventService } from '../event-service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-event-form',
+  standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './event-form.html',
-  styleUrl: './event-form.scss',
+  styleUrl: './event-form.scss'
 })
-export class EventForm implements OnInit{
-
-  private fb = inject(FormBuilder)
+export class EventForm implements OnInit {
+ private fb = inject(FormBuilder);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private location = inject(Location);
@@ -21,12 +22,12 @@ export class EventForm implements OnInit{
   form: FormGroup;
   isEditMode = false;
   eventId: string | null = null;
-
-  // To handle file upload preview
+  
+  // File Upload
   selectedFile: File | null = null;
   imagePreview: string | null = null;
 
-// To track original data for "Partial Update" logic
+  // Store original data to detect changes
   private originalData: any = {};
 
   constructor() {
@@ -44,7 +45,7 @@ export class EventForm implements OnInit{
 
   ngOnInit(): void {
     this.eventId = this.route.snapshot.paramMap.get('id');
-    if(this.eventId){
+    if (this.eventId) {
       this.isEditMode = true;
       this.loadEventData(this.eventId);
     }
@@ -52,7 +53,7 @@ export class EventForm implements OnInit{
 
   loadEventData(id: string) {
     this.eventService.getEventById(id).subscribe(data => {
-      // 1. Store original data (mapped to form keys)
+      // 1. Map API keys to Form Keys
       this.originalData = {
         title: data.eventTitle,
         description: data.eventDescription,
@@ -64,30 +65,24 @@ export class EventForm implements OnInit{
         webUrl: data.websiteUrl || ''
       };
 
-      // 2. Patch form
+      // 2. Fill Form
       this.form.patchValue(this.originalData);
 
-      // 3. Show existing image
+      // 3. Show Image
       if (data.bannerImage) {
-        // Assuming backend sends full path or relative path
-        this.imagePreview = data.bannerImage; 
+        this.imagePreview = data.bannerImage;
       }
     });
   }
 
-  // Helper: Convert ISO string (2026-01-25T10...) to Input format (2026-01-25)
-  private formatDateForInput(isoDate: string): string {
-    if (!isoDate) return '';
-    return isoDate.split('T')[0];
-  }
+  // --- ACTIONS ---
 
-  // Handle File Selection
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
       this.selectedFile = file;
       
-      // Create preview
+      // Preview logic
       const reader = new FileReader();
       reader.onload = () => {
         this.imagePreview = reader.result as string;
@@ -96,79 +91,73 @@ export class EventForm implements OnInit{
     }
   }
 
-onSubmit() {
-    // 1. DEBUG: Check if form is invalid
+  onSubmit() {
     if (this.form.invalid) {
-      console.log('Form is invalid:', this.form.errors);
-      // Log specific controls to see which one is failing
-      Object.keys(this.form.controls).forEach(key => {
-        const controlErrors = this.form.get(key)?.errors;
-        if (controlErrors) {
-          console.log(`Key: ${key}, Errors:`, controlErrors);
-        }
-      });
-      
       this.form.markAllAsTouched();
-      alert('Please check the form for errors (e.g., 10-digit phone number)');
+     Swal.fire({
+        icon: 'error',
+        title: 'Validation Error',
+        text: 'Please fill all required fields correctly.',
+        confirmButtonColor: '#ff6b00' // Match your orange theme
+      });
       return;
     }
 
     if (this.isEditMode && this.eventId) {
-      // --- UPDATE LOGIC ---
-      
-      // 1. Get changed values (These use Form Keys: title, description...)
-      const formChanges = this.getChangedValues(this.form.value, this.originalData);
-      
-      if (Object.keys(formChanges).length === 0 && !this.selectedFile) {
-        alert('No changes made.');
+      // UPDATE: Only send changed fields
+      const changes = this.getChangedValues(this.form.value, this.originalData);
+
+      if (Object.keys(changes).length === 0) {
+Swal.fire('Info', 'No changes made.', 'info');
         return;
       }
 
-      // 2. MAP KEYS: Convert Form Keys -> Backend Keys
-      const apiPayload: any = {};
-
-      // Loop through changes and rename keys if necessary
-      Object.keys(formChanges).forEach(key => {
-        if (key === 'title') apiPayload['eventTitle'] = formChanges[key];
-        else if (key === 'description') apiPayload['eventDescription'] = formChanges[key];
-        else if (key === 'webUrl') apiPayload['websiteUrl'] = formChanges[key];
-        else apiPayload[key] = formChanges[key]; // Other keys (address, contactNo) match
-      });
-
-      console.log('Sending Update Payload:', apiPayload);
-
-      this.eventService.updateEvent(this.eventId, apiPayload).subscribe({
+     this.eventService.updateEvent(this.eventId, changes).subscribe({
         next: () => {
-          alert('Event Updated Successfully');
-          this.router.navigate(['/events']);
+          Swal.fire({
+            icon: 'success',
+            title: 'Updated!',
+            text: 'Your Event has been updated successfully',
+            showConfirmButton: false,
+            timer: 2000
+          }).then(() => this.router.navigate(['/events']));
         },
-        error: (err) => console.error('Update Error:', err)
+        error: (err) => Swal.fire('Error', 'Update Failed', 'error')
       });
 
-    }else {
-    if (!this.selectedFile) {
-      alert('Please select a banner image');
-      return;
-    }
-
-    // Pass the form value to the service
-    this.eventService.createEvent(this.form.value, this.selectedFile).subscribe({
-      next: () => {
-        alert('Event Created Successfully');
-        this.router.navigate(['/events']);
-      },
-      error: (err) => {
-        // IMPROVED ERROR HANDLING:
-        // This will extract the specific Mongoose error string you see in the console
-        const errorMessage = err.error?.error || err.message || 'Server Error';
-        alert('Failed to create event: ' + errorMessage);
-        console.error('Full Error Object:', err);
+    } else {
+      if (!this.selectedFile) {
+        Swal.fire('Image Required', 'Please upload a banner image.', 'warning');
+        return;
       }
-    });
-  }
-}
 
-private getChangedValues(formValue: any, originalValue: any): any {
+     this.eventService.createEvent(this.form.value, this.selectedFile).subscribe({
+        next: () => {
+          // Using the specific style from your screenshot
+          Swal.fire({
+            html: `
+              <div class="py-4">
+                <div class="mb-3">
+                  <i class="bi bi-check-circle-fill text-success" style="font-size: 5rem;"></i>
+                </div>
+                <h4 class="fw-bold">Your Event has been Created successfully</h4>
+              </div>
+            `,
+            showConfirmButton: false,
+            timer: 2500,
+            customClass: {
+              popup: 'rounded-4'
+            }
+          }).then(() => this.router.navigate(['/events']));
+        },
+        error: (err) => Swal.fire('Error', 'Failed to create event', 'error')
+      });
+    }
+  }
+
+  // --- HELPERS ---
+
+  private getChangedValues(formValue: any, originalValue: any): any {
     const changes: any = {};
     Object.keys(formValue).forEach(key => {
       if (formValue[key] !== originalValue[key]) {
@@ -178,9 +167,23 @@ private getChangedValues(formValue: any, originalValue: any): any {
     return changes;
   }
 
+
+
+private formatDateForInput(isoDate: string): string {
+  if (!isoDate) return '';
+  const date = new Date(isoDate);
+  
+  // This creates the YYYY-MM-DDTHH:mm format required by datetime-local
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+}
+
   goBack() {
     this.location.back();
   }
-
-
 }

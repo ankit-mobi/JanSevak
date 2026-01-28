@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Complaint, ComplaintService } from '../complaint-service';
 import { Location } from '@angular/common';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-complaint-detail',
@@ -21,39 +23,66 @@ export class ComplaintDetail implements OnInit {
 
   selectedStatus: string = '';
   newComment: string = '';
+selectedFile = signal<File | null>(null);
 
-  ngOnInit(): void {
+  ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
-    if(id){
+    if (id) {
       this.loadComplaint(id);
     }
   }
 
-  loadComplaint(id: string){
-    this.complaintService.getComplaintById(id).subscribe(data => {
-      if(data){
+  loadComplaint(id: string) {
+    this.complaintService.getComplaintById(id).subscribe({
+      next: (data) => {
         this.complaint.set(data);
-        this.selectedStatus = data.status;
-      }
+        this.selectedStatus = data.status; // Sets the dropdown to current status
+      },
+      error: (err) => console.error(err)
     });
   }
 
-  submitUpdates() {
-const complaintId = this.complaint()?.id;
 
-const submissionData = {
-      status: this.selectedStatus,
-      comment: this.newComment,
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+     this.selectedFile.set(file);
+    }
+  }
 
-      };
-console.log('Submitting Updates for', complaintId, submissionData);
+ submitUpdates() {
+    const complaintId = this.complaint()?.id;
+    if (!complaintId) return;
 
-
-alert(`Form Submitted!\n\nNew Status: ${this.selectedStatus}\nComment: "${this.newComment}"\n\n(API integration required to save permanently)`);
-
-// Here you would call your service:
-    // this.complaintService.updateComplaint(complaintId, submissionData).subscribe(...)
-}
+    this.complaintService.updateComplaint(complaintId, this.selectedStatus, this.selectedFile() || undefined)
+      .subscribe({
+        next: (res) => {
+          Swal.fire({
+            html: `
+              <div class="py-4">
+                <div class="mb-3">
+                  <i class="bi bi-check-circle text-success" style="font-size: 5rem;"></i>
+                </div>
+                <h4 class="fw-bold text-dark">Complaint Status Updated Successfully</h4>
+              </div>
+            `,
+            showConfirmButton: false,
+            timer: 2000,
+            customClass: { popup: 'rounded-4' }
+          }).then(() => {
+            this.goBack();
+          });
+        },
+        error: (err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Update Failed',
+            text: 'Could not update the complaint. Please check your connection.',
+            confirmButtonColor: '#ff6b00'
+          });
+        }
+      });
+  }
 
   
   goBack(){

@@ -1,71 +1,81 @@
-<div class="container-fluid p-0" *ngIf="event() as e">
-
-  <div class="bg-white p-3 rounded mb-4 shadow-sm">
-    <button class="btn btn-light rounded-circle me-3" (click)="goBack()"><i class="bi bi-arrow-left"></i></button>
-    <span class="fw-bold fs-5">Event Details</span>
-  </div>
-
-  <div class="card border-0 shadow-sm p-4" style="border-radius: 15px;">
-    
-    <div class="mb-4">
-      <img [src]="e.bannerImage" class="w-100 rounded-4 object-fit-cover" style="height: 300px;">
+<div class="container-fluid p-0">
+  @if (event(); as e) {
+    <div class="bg-white p-3 rounded-4 mb-4 shadow-sm d-flex align-items-center border-0">
+      <button class="btn btn-light rounded-circle shadow-sm me-3 back-btn" (click)="goBack()">
+        <i class="bi bi-arrow-left"></i>
+      </button>
+      <span class="fw-bold fs-5">Event Details</span>
     </div>
 
-    <div class="mb-3">
-      <span class="badge bg-light text-dark border me-2">{{ e._id | slice:0:6 }}</span>
-      <span class="badge bg-success-subtle text-success">Active</span>
+    <div class="card border-0 shadow-sm p-4 rounded-4">
+      
+      <div class="mb-4 banner-container">
+        <img [src]="e.bannerImage" class="w-100 rounded-4 object-fit-cover shadow-sm event-banner-img" alt="event banner">
+      </div>
+
+      <div class="mb-3 d-flex gap-2">
+        <span class="badge bg-light text-dark border px-3 py-2 rounded-3 shadow-sm">{{ e._id | slice:0:6 }}</span>
+        <span class="badge status-active-pill px-3 py-2 rounded-pill">Active</span>
+      </div>
+
+      <h4 class="fw-bold mb-3 text-dark">{{ e.eventTitle }}</h4>
+      
+      <p class="text-secondary mb-5 description-text">{{ e.eventDescription }}</p>
+
+      <div class="row g-5 mb-5">
+        <div class="col-12 col-md-6">
+          <div class="d-flex align-items-start">
+             <div class="icon-box me-3"><i class="bi bi-calendar-check-fill text-orange"></i></div>
+             <div>
+               <small class="text-muted d-block text-uppercase tracking-wider small-label">Event Duration</small>
+               <strong class="text-dark">{{ e.startDate | date:'mediumDate' }} to {{ e.endDate | date:'mediumDate' }}</strong>
+             </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div class="d-flex align-items-start">
+             <div class="icon-box me-3"><i class="bi bi-telephone-fill text-orange"></i></div>
+             <div>
+               <small class="text-muted d-block text-uppercase tracking-wider small-label">Contact Information</small>
+               <strong class="text-dark">{{ e.contactNo }}</strong>
+             </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div class="d-flex align-items-start">
+             <div class="icon-box me-3"><i class="bi bi-geo-alt-fill text-orange"></i></div>
+             <div>
+               <small class="text-muted d-block text-uppercase tracking-wider small-label">Address</small>
+               <strong class="text-dark">{{ e.address }}</strong>
+             </div>
+          </div>
+        </div>
+
+        @if (e.emailId) {
+          <div class="col-12 col-md-6">
+            <div class="d-flex align-items-start">
+               <div class="icon-box me-3"><i class="bi bi-envelope-fill text-orange"></i></div>
+               <div>
+                 <small class="text-muted d-block text-uppercase tracking-wider small-label">Email</small>
+                 <strong class="text-dark">{{ e.emailId }}</strong>
+               </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="d-flex flex-wrap gap-3 mt-4 pt-3 border-top border-light">
+        <button class="btn btn-gradient rounded-pill px-5 py-2 fw-bold text-white shadow-sm flex-grow-1 flex-md-grow-0">
+          View Website
+        </button>
+        <button [routerLink]="['/events/edit', e._id]" 
+                class="btn btn-outline-secondary rounded-pill px-5 py-2 fw-bold flex-grow-1 flex-md-grow-0">
+          Edit Event
+        </button>
+      </div>
+
     </div>
-
-    <h4 class="fw-bold mb-3">{{ e.eventTitle }}</h4>
-    
-    <p class="text-muted mb-4">{{ e.eventDescription }}</p>
-
-    <div class="row g-4 mb-4">
-      <div class="col-md-6">
-        <div class="d-flex">
-           <i class="bi bi-calendar-check fs-4 text-orange me-3"></i>
-           <div>
-             <small class="text-muted d-block">Event Duration</small>
-             <strong>{{ e.startDate | date:'mediumDate' }} to {{ e.endDate | date:'mediumDate' }}</strong>
-           </div>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="d-flex">
-           <i class="bi bi-telephone fs-4 text-orange me-3"></i>
-           <div>
-             <small class="text-muted d-block">Contact Information</small>
-             <strong>{{ e.contactNo }}</strong>
-           </div>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="d-flex">
-           <i class="bi bi-geo-alt fs-4 text-orange me-3"></i>
-           <div>
-             <small class="text-muted d-block">Address</small>
-             <strong class="text-decoration-none">{{ e.address }}</strong>
-           </div>
-        </div>
-      </div>
-
-       <div class="col-md-6" *ngIf="e.emailId">
-        <div class="d-flex">
-           <i class="bi bi-envelope fs-4 text-orange me-3"></i>
-           <div>
-             <small class="text-muted d-block">Email</small>
-             <strong>{{ e.emailId }}</strong>
-           </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="d-flex gap-3 mt-3">
-      <button class="btn btn-success rounded-pill px-4">View Website</button>
-      <button [routerLink]="['/events/edit', e._id]" class="btn btn-outline-secondary rounded-pill px-4">Edit Event</button>
-    </div>
-
-  </div>
+  }
 </div>

@@ -1,79 +1,83 @@
 <div class="container-fluid p-0">
-  
-  <div class="bg-white p-3 rounded mb-4 shadow-sm">
-    <button class="btn btn-light rounded-circle me-3" (click)="goBack()"><i class="bi bi-arrow-left"></i></button>
+  <div class="bg-white p-3 rounded-4 mb-4 shadow-sm d-flex align-items-center border-0">
+    <button class="btn btn-light rounded-circle shadow-sm me-3 back-btn" (click)="goBack()">
+      <i class="bi bi-arrow-left"></i>
+    </button>
     <span class="fw-bold fs-5">{{ isEditMode ? 'Edit Event' : 'Create New Event' }}</span>
   </div>
 
-  <div class="card border-0 shadow-sm p-4" style="border-radius: 15px;">
-    
+  <div class="card border-0 shadow-sm p-4 p-md-5 rounded-4">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label class="form-label small text-muted">Event Title</label>
-          <input type="text" formControlName="title" class="form-control bg-light" placeholder="Enter event name">
+      <div class="row g-4 mb-4">
+        <div class="col-12 col-lg-6">
+          <label class="form-label small fw-bold text-muted">Event Title</label>
+          <input type="text" formControlName="title" class="form-control bg-light rounded-3 border-0 py-2" placeholder="Enter event name">
         </div>
-        <div class="col-md-3">
-          <label class="form-label small text-muted">Start Date</label>
-          <input type="date" formControlName="startDate" class="form-control bg-light">
-        </div>
-        <div class="col-md-3">
-          <label class="form-label small text-muted">End Date</label>
-          <input type="date" formControlName="endDate" class="form-control bg-light">
-        </div>
+        <div class="col-6 col-lg-3">
+  <label class="form-label small fw-bold text-muted">Start Date & Time</label>
+  <input type="datetime-local" formControlName="startDate" class="form-control bg-light rounded-3 border-0 py-2">
+</div>
+<div class="col-6 col-lg-3">
+  <label class="form-label small fw-bold text-muted">End Date & Time</label>
+  <input type="datetime-local" formControlName="endDate" class="form-control bg-light rounded-3 border-0 py-2">
+</div>
       </div>
 
       <div class="mb-4">
-        <label class="form-label small text-muted">Event Description</label>
-        <textarea formControlName="description" rows="4" class="form-control bg-light" placeholder="Enter event description"></textarea>
+        <label class="form-label small fw-bold text-muted">Event Description</label>
+        <textarea formControlName="description" rows="4" class="form-control bg-light rounded-3 border-0" placeholder="Enter event description"></textarea>
       </div>
 
       <div class="mb-4">
-        <label class="form-label small text-muted">Event Banner Image</label>
-        
-        <div class="upload-box position-relative text-center p-4 rounded border-dashed bg-light" 
-             style="min-height: 150px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <label class="form-label small fw-bold text-muted">Event Banner Image</label>
+        <div class="upload-box position-relative rounded-4 border-dashed bg-light d-flex flex-column align-items-center justify-content-center p-4">
           
-          <img *ngIf="imagePreview" [src]="imagePreview" class="img-fluid rounded mb-3" style="max-height: 200px;">
-
-          <div *ngIf="!imagePreview" class="text-muted">
-            <i class="bi bi-cloud-upload fs-3"></i>
-            <p class="small mb-0">Click to upload or drag & drop</p>
-          </div>
+          @if (imagePreview) {
+            <div class="preview-wrapper position-relative">
+              <img [src]="imagePreview" class="img-fluid rounded-3 shadow-sm mb-2 preview-img" alt="preview">
+              <p class="small text-orange mb-0 fw-bold">Click to change image</p>
+            </div>
+          } @else {
+            <div class="text-center text-muted">
+              <i class="bi bi-cloud-upload fs-1 d-block mb-2"></i>
+              <p class="small mb-0">Click to upload or drag & drop</p>
+            </div>
+          }
           
-          <input type="file" (change)="onFileSelected($event)" accept="image/*" 
-                 style="opacity: 0; position: absolute; top:0; left:0; width:100%; height:100%; cursor: pointer;">
+          <input type="file" (change)="onFileSelected($event)" accept="image/*" class="file-input-overlay">
         </div>
       </div>
 
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label class="form-label small text-muted">Website URL</label>
-          <input type="text" formControlName="webUrl" class="form-control bg-light" placeholder="https://...">
+      <div class="row g-4 mb-4">
+        <div class="col-12 col-md-6">
+          <label class="form-label small fw-bold text-muted">Website URL</label>
+          <input type="text" formControlName="webUrl" class="form-control bg-light rounded-3 border-0 py-2" placeholder="https://...">
         </div>
-        <div class="col-md-6">
-          <label class="form-label small text-muted">Address</label>
-          <input type="text" formControlName="address" class="form-control bg-light" placeholder="Event Location">
-        </div>
-      </div>
-
-      <div class="row mb-5">
-        <div class="col-md-6">
-          <label class="form-label small text-muted">Contact Number</label>
-          <input type="text" formControlName="contactNo" class="form-control bg-light" placeholder="10-digit number">
-        </div>
-        <div class="col-md-6">
-          <label class="form-label small text-muted">Email ID</label>
-          <input type="email" formControlName="emailId" class="form-control bg-light" placeholder="Contact Email">
+        <div class="col-12 col-md-6">
+          <label class="form-label small fw-bold text-muted">Address</label>
+          <input type="text" formControlName="address" class="form-control bg-light rounded-3 border-0 py-2" placeholder="Event Location">
         </div>
       </div>
 
-      <div class="d-flex gap-3">
-        <button type="submit" class="btn btn-success rounded-pill px-5">
+      <div class="row g-4 mb-5">
+        <div class="col-12 col-md-6">
+          <label class="form-label small fw-bold text-muted">Contact Number</label>
+          <input type="text" formControlName="contactNo" class="form-control bg-light rounded-3 border-0 py-2" placeholder="10-digit number">
+        </div>
+        <div class="col-12 col-md-6">
+          <label class="form-label small fw-bold text-muted">Email ID</label>
+          <input type="email" formControlName="emailId" class="form-control bg-light rounded-3 border-0 py-2" placeholder="Contact Email">
+        </div>
+      </div>
+
+      <div class="d-flex flex-column flex-md-row gap-3 pt-3 border-top border-light">
+        <button type="submit" class="btn btn-gradient rounded-pill px-5 py-2 fw-bold text-white shadow-sm order-1 order-md-1">
           {{ isEditMode ? 'Update Event' : 'Create Event' }}
         </button>
-        <button type="button" (click)="goBack()" class="btn btn-outline-secondary rounded-pill px-4">Cancel</button>
+        <button type="button" (click)="goBack()" class="btn btn-outline-secondary rounded-pill px-5 py-2 fw-bold order-2 order-md-2">
+          Cancel
+        </button>
       </div>
 
     </form>

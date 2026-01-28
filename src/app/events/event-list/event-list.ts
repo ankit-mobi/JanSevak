@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { EventService, AppEvent } from '../event-service';
 import { CommonModule, DatePipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-event-list',
@@ -10,23 +10,20 @@ import { RouterLink } from '@angular/router';
   styleUrl: './event-list.scss',
 })
 export class EventList implements OnInit {
-
-  private eventService = inject(EventService);
+ private eventService = inject(EventService);
   events = signal<AppEvent[]>([]);
 
   ngOnInit(): void {
     this.loadEvents();
   }
 
-  loadEvents(){
-    this.eventService.getEvents().subscribe(data => this.events.set(data));
-  }
-
-  deleteEvent(id: string){
-    if(confirm('Are you sure you want to delete this event?')){
-      this.eventService.deleteEvent(id).subscribe(() => {
-        this.loadEvents();
-      })
-    }
+  loadEvents() {
+    this.eventService.getEvents().subscribe({
+      next: (data) => {
+        console.log('Events Loaded:', data);
+        this.events.set(data);
+      },
+      error: (err) => console.error('Failed to load events', err)
+    });
   }
 }

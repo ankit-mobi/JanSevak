@@ -1,0 +1,98 @@
+@if (isLoading()) {
+  <div class="text-center p-5">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-2 text-muted">Loading user profile...</p>
+  </div>
+} 
+@else if (user(); as u) {
+  <div class="container-fluid p-0">
+
+    <div class="bg-white p-3 rounded mb-4 shadow-sm d-flex align-items-center">
+      <button class="btn btn-light rounded-circle me-3 shadow-sm" (click)="goBack()">
+        <i class="bi bi-arrow-left"></i>
+      </button>
+      <span class="fw-bold fs-5">User Details</span>
+    </div>
+
+    <div class="row g-4">
+      
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm p-4 text-center h-100" style="border-radius: 15px;">
+          <img [src]="u.avatar || 'assets/default-avatar.png'" class="rounded-circle mx-auto mb-3 border p-1" width="100" height="100">
+          <h5 class="fw-bold mb-1 text-dark">{{ u.name }}</h5>
+          <p class="text-muted small">{{ u.email }}</p>
+          <span class="badge bg-light text-secondary border mb-3">UID: {{ u.uid | slice:0:10 }}...</span>
+          
+          <div class="text-start mt-3 pt-3 border-top">
+            <p class="small text-muted mb-2"><i class="bi bi-calendar me-2"></i>Registered: <span class="text-dark">{{ u.createdAt | date:'mediumDate' }}</span></p>
+            <p class="small text-muted mb-0"><i class="bi bi-shield-lock me-2"></i>Provider: <span class="text-dark">{{ u.provider | titlecase }}</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-8">
+        
+        <div class="card border-0 shadow-sm p-4 mb-4" style="border-radius: 15px;">
+          <h6 class="fw-bold mb-3 text-dark">Registered Roles</h6>
+          <div class="d-flex flex-wrap gap-3">
+            @for (role of u.roles; track role) {
+              <div class="d-flex align-items-center p-3 rounded border bg-light" style="min-width: 150px;">
+                <div class="icon-box bg-white text-success rounded-circle p-2 me-3 shadow-sm">
+                  <i class="bi bi-person-badge fs-5"></i>
+                </div>
+                <div>
+                  <small class="text-muted d-block text-uppercase" style="font-size: 0.7rem;">Role</small>
+                  <span class="fw-bold text-dark">{{ role }}</span>
+                </div>
+              </div>
+            } @empty {
+              <p class="text-muted fst-italic">No additional roles assigned (Citizen only).</p>
+            }
+          </div>
+        </div>
+
+        <div class="card border-0 shadow-sm p-4" style="border-radius: 15px;">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+             <h6 class="fw-bold m-0 text-dark">Complaint History</h6>
+             <span class="badge bg-light text-dark">{{ u.complaints.length }} Total</span>
+          </div>
+          
+          <div class="table-responsive">
+            <table class="table align-middle mb-0">
+               <thead class="bg-light">
+                 <tr>
+                   <th class="border-0 ps-3 rounded-start text-secondary small text-uppercase">Title</th>
+                   <th class="border-0 text-secondary small text-uppercase">Date</th>
+                   <th class="border-0 rounded-end text-secondary small text-uppercase">Status</th>
+                 </tr>
+               </thead>
+               <tbody>
+                 @for (c of u.complaints; track c) {
+                   <tr>
+                     <td class="ps-3 fw-bold text-dark">{{ c.title }}</td>
+                     <td class="text-muted small">{{ c.date }}</td>
+                     <td>
+                       <span class="badge rounded-pill px-3" 
+                             [class.bg-warning-subtle]="c.status === 'Pending'"
+                             [class.text-warning]="c.status === 'Pending'"
+                             [class.bg-info-subtle]="c.status === 'In-Progress'"
+                             [class.text-info]="c.status === 'In-Progress'"
+                             [class.bg-success-subtle]="c.status === 'Completed'"
+                             [class.text-success]="c.status === 'Completed'">
+                         {{ c.status }}
+                       </span>
+                     </td>
+                   </tr>
+                 } @empty {
+                   <tr><td colspan="3" class="text-center text-muted py-5">No complaints found for this user.</td></tr>
+                 }
+               </tbody>
+            </table>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+}

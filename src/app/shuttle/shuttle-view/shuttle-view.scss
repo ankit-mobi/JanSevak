@@ -1,3 +1,79 @@
 .bg-orange { background-color: #ff6b35; }
 .bg-orange-light { background-color: #fff5f0; }
-.border-orange-subtle { border-color: #ffd8c4 !important; }
+.border-orange-subtle { border-color: #ffd8c4 !important; }// Brand Colors & Gradients
+$primary-gradient: linear-gradient(180deg, #77FE0D 0%, #4BAA00 100%);
+$bg-orange: #ff6b35;
+$bg-orange-light: #fff5f0;
+$border-orange-subtle: #ffd8c4;
+
+// Base styles
+.text-orange { color: $bg-orange; }
+.bg-orange { background-color: $bg-orange; }
+.bg-orange-light { background-color: $bg-orange-light; }
+.border-orange-subtle { border-color: $border-orange-subtle !important; }
+
+// Component Specific
+.rounded-4 { border-radius: 1.25rem !important; } // Approx 20px
+
+.back-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Stop Points Boxes
+.stop-item-box {
+  max-width: 600px;
+  transition: transform 0.2s ease;
+  
+  &:hover {
+    transform: translateX(5px);
+  }
+}
+
+.stop-number-badge {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+// Gradient Button
+.btn-update {
+  background: $primary-gradient;
+  transition: transform 0.2s, box-shadow 0.2s;
+  
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(75, 170, 0, 0.35);
+    color: white;
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.tracking-wide {
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+// Mobile Breakpoints
+@media (max-width: 767.98px) {
+  .stop-item-box {
+    max-width: 100%;
+  }
+  
+  .btn-update, .btn-outline-secondary {
+    width: 100%; // Buttons stack and fill width on small screens
+  }
+
+  .border-md-start, .border-md-end {
+    border: none !important;
+  }
+}

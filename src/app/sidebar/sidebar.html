@@ -1,22 +1,25 @@
-<div class="sidebar-container d-flex flex-column p-3 text-white" [class.collapsed]="isCollapsed()" [class.mobile-show]="showMobileMenu()">
+<div class="sidebar-container d-flex flex-column p-3 text-white" 
+     [class.collapsed]="isCollapsed()" 
+     [class.mobile-show]="showMobileMenu()">
   
   <div class="d-flex align-items-center justify-content-between mb-4">
-    <div class="logo-section bg-white text-orange rounded p-2 d-flex align-items-center justify-content-center overflow-hidden">
+    <div class="logo-section bg-white rounded p-2 d-flex align-items-center justify-content-center overflow-hidden w-100 shadow-sm">
       <img src="/assets/logo/site-logo.png" height="30px" alt="logo"> 
       @if (!isCollapsed()) { 
         <h4 class="m-0 fw-bold text-dark ms-2 logo-text"> Jan<span class="text-orange">Sevak</span> </h4> 
       }
     </div> 
+    
     <button class="btn btn-link text-white p-0 ms-2 d-none d-md-block" (click)="toggleCollapse()"> 
       <i class="bi" [class.bi-list]="isCollapsed()" [class.bi-x-lg]="!isCollapsed()"></i> 
     </button> 
+    
     <button class="btn btn-link text-white p-0 ms-2 d-block d-md-none" (click)="toggleMobile()"> 
       <i class="bi bi-x-lg"></i>
     </button>
   </div>
 
   <ul class="nav nav-pills flex-column mb-auto">
-
     <li class="nav-item">
       <a routerLink="/dashboard" 
          routerLinkActive="active-link" 
@@ -24,9 +27,7 @@
          class="nav-link text-white mb-2 d-flex align-items-center" 
          title="Dashboard">
         <i class="bi bi-grid-fill icon-fixed"></i>
-        @if (!isCollapsed()) {
-          <span class="link-text">Dashboard</span>
-        } 
+        @if (!isCollapsed()) { <span class="link-text">Dashboard</span> } 
       </a>
     </li>
 
@@ -36,9 +37,7 @@
          class="nav-link text-white mb-2 d-flex align-items-center" 
          title="Complaint Management">
         <i class="bi bi-file-earmark-text icon-fixed"></i> 
-        @if (!isCollapsed()) { 
-          <span class="link-text">Complaint Management</span> 
-        } 
+        @if (!isCollapsed()) { <span class="link-text">Complaint Management</span> } 
       </a>
     </li>
 
@@ -58,32 +57,37 @@
          class="nav-link text-white mb-2 d-flex align-items-center" 
          title="Events"> 
         <i class="bi bi-calendar-event icon-fixed"></i> 
-        @if (!isCollapsed()) { <span class="link-text">Events</span> } 
+        @if (!isCollapsed()) { <span class="link-text">Events Management</span> } 
       </a> 
     </li>
     
     <li class="nav-item"> 
-      <a href="#" class="nav-link text-white mb-2 d-flex align-items-center" title="User Management"> 
+      <a routerLink="/users"
+         routerLinkActive="active-link" 
+         class="nav-link text-white mb-2 d-flex align-items-center"
+         title="User Management"> 
         <i class="bi bi-people icon-fixed"></i> 
         @if (!isCollapsed()) { <span class="link-text">User Management</span> } 
       </a> 
     </li>
     
-    <li class="nav-item"> 
+    <!-- <li class="nav-item"> 
       <a href="#" class="nav-link text-white mb-2 d-flex align-items-center" title="Report"> 
         <i class="bi bi-megaphone icon-fixed"></i> 
         @if (!isCollapsed()) { <span class="link-text">Report</span> } 
       </a>
-    </li>
+    </li> -->
   </ul>
 
   <div class="mt-auto">
-    <hr> 
-    <a href="javascript:void(0)" (click)="logout()" class="nav-link text-white d-flex align-items-center" title="Logout"> 
+    <hr class="bg-white opacity-25"> 
+    <a href="javascript:void(0)" (click)="logout()" class="nav-link text-white d-flex align-items-center logout-link" title="Logout"> 
       <i class="bi bi-box-arrow-right icon-fixed"></i> 
       @if (!isCollapsed()) { <span class="link-text">Logout</span> } 
     </a>
   </div>
+</div>
 
-</div> 
-@if (showMobileMenu()) { <div class="mobile-backdrop" (click)="toggleMobile()"></div> }
+@if (showMobileMenu()) { 
+  <div class="mobile-backdrop d-md-none" (click)="toggleMobile()"></div> 
+}

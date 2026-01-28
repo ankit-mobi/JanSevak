@@ -12,17 +12,22 @@ import { AppEvent, EventService } from '../event-service';
 
 export class EventView implements OnInit {
 
-  private route= inject(ActivatedRoute);
+ private route = inject(ActivatedRoute);
   private eventService = inject(EventService);
   private location = inject(Location);
 
   event = signal<AppEvent | undefined>(undefined);
 
-
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.eventService.getEventById(id).subscribe(data => this.event.set(data));
+      this.eventService.getEventById(id).subscribe({
+        next: (data) => {
+          console.log('Single Event Loaded:', data);
+          this.event.set(data);
+        },
+        error: (err) => console.error('Failed to load event', err)
+      });
     }
   }
 

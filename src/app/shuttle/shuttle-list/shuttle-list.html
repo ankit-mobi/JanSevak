@@ -1,60 +1,75 @@
 <div class="container-fluid p-0">
-  
-  <div class="bg-white p-3 rounded mb-4 shadow-sm d-flex justify-content-between align-items-center">
+  <div class="bg-white p-3 rounded-4 mb-4 shadow-sm d-flex flex-wrap justify-content-between align-items-center gap-3 border-0">
     <div>
       <h5 class="fw-bold m-0">E-Riksha Shuttle Management</h5>
       <p class="text-muted small m-0">Manage shuttle routes and services</p>
     </div>
-    <button routerLink="/shuttle/new" class="btn btn-success rounded-pill px-4">
+    <button routerLink="/shuttle/new" class="btn btn-gradient rounded-pill px-4 fw-bold text-white border-0">
       <i class="bi bi-plus-lg me-2"></i> Add New Route
     </button>
   </div>
 
-<div class="d-flex flex-column gap-3">
-  @for (route of routes(); track route._id) { <div class="card border-0 shadow-sm p-4" style="border-radius: 15px;">
-      
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <div class="d-flex align-items-center gap-3">
-          <span class="badge bg-light text-dark border px-3 py-2 fs-6">
-            {{ route._id | slice:0:6 }}... </span>
-          <h5 class="fw-bold m-0">{{ route.routeName }}</h5> </div>
-        
-        <div class="row w-50 text-muted small">
-           <div class="col-4">
-              <strong>Service Time</strong><br>{{ route.serviceTimings }} </div>
-           <div class="col-4">
-              <strong>Operating Days</strong><br>{{ route.operationalDays }} </div>
-           <div class="col-4">
-              <strong>Frequency</strong><br>{{ route.frequency }}
-           </div>
-        </div>
+  <div class="d-flex flex-column gap-4">
+    @for (route of routes(); track route._id) {
+      <div class="card border-0 shadow-sm p-4 rounded-4">
+        <div class="row align-items-start mb-3 g-3">
+          <div class="col-12 col-xl-4">
+            <div class="d-flex align-items-center gap-3">
+              <span class="badge bg-light text-dark border px-3 py-2 fs-6 rounded-3">
+                {{ route._id | slice:0:6 }}
+              </span>
+              <h5 class="fw-bold m-0 text-dark">{{ route.routeName }}</h5>
+            </div>
+          </div>
+          
+          <div class="col-12 col-md-9 col-xl-6">
+            <div class="row text-muted small g-2">
+              <div class="col-4">
+                <strong class="text-dark d-block">Service Time</strong>
+                {{ route.serviceTimings }}
+              </div>
+              <div class="col-4 border-start ps-3">
+                <strong class="text-dark d-block">Operating Days</strong>
+                {{ route.operationalDays }}
+              </div>
+              <div class="col-4 border-start ps-3">
+                <strong class="text-dark d-block">Frequency</strong>
+                {{ route.frequency }}
+              </div>
+            </div>
+          </div>
 
-        <span class="badge rounded-pill px-4 py-2 bg-success-subtle text-success border border-success-subtle">
-          Active
-        </span>
-      </div>
-
-      <div class="mb-4">
-        <p class="text-muted small mb-2">Pickup & Drop points</p>
-        <div class="d-flex flex-wrap gap-2">
-          @for (stop of route.pickupAndDropPoints; track stop) {
-            <span class="badge bg-warning-subtle text-dark border border-warning-subtle rounded-pill px-3 py-2 fw-normal">
-              {{ stop }}
+          <div class="col-12 col-md-3 col-xl-2 text-md-end">
+            <span class="status-pill status-active px-4 py-2">
+              Active
             </span>
-          }
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <p class="text-muted small mb-2 fw-bold text-uppercase tracking-wider">Pickup & Drop points</p>
+          <div class="d-flex flex-wrap gap-2">
+            @for (stop of route.pickupAndDropPoints; track stop) {
+              <span class="badge stop-badge rounded-pill px-3 py-2 fw-normal">
+                {{ stop }}
+              </span>
+            }
+          </div>
+        </div>
+
+        <div class="d-flex flex-wrap gap-2">
+          <button [routerLink]="['/shuttle/view', route._id]" class="btn btn-gradient btn-sm rounded-pill px-4 text-white border-0">
+            <i class="bi bi-eye-fill me-2"></i> View Details
+          </button>
+          <button [routerLink]="['/shuttle/edit', route._id]" class="btn btn-gradient btn-sm rounded-pill px-4 text-white border-0">
+            <i class="bi bi-pencil-fill me-2"></i> Edit
+          </button>
         </div>
       </div>
-
-      <div class="d-flex gap-2">
-        <button [routerLink]="['/shuttle/view', route._id]" class="btn btn-success rounded-pill px-4 btn-sm">
-          <i class="bi bi-eye-fill me-1"></i> View Details
-        </button>
-        <button [routerLink]="['/shuttle/edit', route._id]" class="btn btn-success rounded-pill px-4 btn-sm">
-          <i class="bi bi-pencil-fill me-1"></i> Edit
-        </button>
+    } @empty {
+      <div class="bg-white p-5 rounded-4 shadow-sm text-center">
+        <h5 class="text-muted">No shuttle routes available.</h5>
       </div>
-
-    </div>
-  }
-</div>
+    }
+  </div>
 </div>

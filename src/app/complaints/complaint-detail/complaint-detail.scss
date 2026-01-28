@@ -1,35 +1,114 @@
+$text-orange: #ff6b35;
+$primary-gradient: linear-gradient(180deg, #77FE0D 0%, #4BAA00 100%);
+$bg-light: #f8f9fa;
+
 .text-orange {
-  color: #ff6b35;
+  color: $text-orange;
 }
 
+// Back button styling
+.back-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+// Main Image Container
+.main-img-wrapper {
+  height: 350px;
+  width: 100%;
+  
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+// Reporter Info Icon Boxes
+.icon-box {
+  width: 32px;
+  height: 32px;
+  background: $bg-light;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Form Controls
 .form-select, .form-control {
-  border: 1px solid #eee;
-  font-size: 0.9rem;
-  padding: 10px 15px;
+  font-size: 0.95rem;
+  transition: all 0.2s ease-in-out;
   
   &:focus {
-    box-shadow: none;
-    border-color: #6bc940;
-    background-color: white;
+    box-shadow: 0 0 0 3px rgba(119, 254, 13, 0.15);
+    background-color: white !important;
   }
 }
 
-/* Styling for the upload box area */
+// Upload Box
 .border-dashed {
-  border: 2px dashed #ddd;
-  transition: all 0.3s;
+  border: 2px dashed #d1d9e0;
+  cursor: pointer;
+  transition: all 0.2s ease;
   
   &:hover {
-    border-color: #6bc940;
-    background-color: #f8fff9; /* Slight green tint on hover */
+    border-color: #4BAA00;
+    background-color: #f1ffed !important;
   }
 }
 
-.btn-success {
-  background-color: #6bc940;
+.file-input-overlay {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+// Action Buttons
+.btn-cancel {
+  background: white;
+  border: 1px solid #dee2e6;
+  color: #6c757d;
+  &:hover {
+    background: #f8f9fa;
+  }
+}
+
+.btn-update {
+  background: $primary-gradient;
   border: none;
+  transition: transform 0.2s, box-shadow 0.2s;
   
   &:hover {
-    background-color: darken(#6bc940, 5%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(75, 170, 0, 0.35) !important;
+    color: white;
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.description-text {
+  line-height: 1.6;
+}
+
+// Mobile Responsiveness
+@media (max-width: 991px) {
+  .main-img-wrapper {
+    height: 250px;
+  }
+  
+  .btn-update, .btn-cancel {
+    flex: 1; // Buttons take equal width on mobile
   }
 }

@@ -1,0 +1,69 @@
+// Brand Colors & Gradients
+$primary-gradient: linear-gradient(180deg, #77FE0D 0%, #4BAA00 100%);
+$text-orange: #ff6b35;
+
+.text-orange { color: $text-orange; }
+.rounded-4 { border-radius: 1.25rem !important; }
+
+// Image Handling
+.event-banner {
+  height: 200px;
+}
+
+// Custom Badges
+.status-pill.status-active {
+  background-color: #e9f9ee;
+  color: #24a148;
+  font-weight: 600;
+  font-size: 0.8rem;
+  border-radius: 50px;
+}
+
+.id-badge {
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  font-size: 0.75rem;
+  font-weight: 600;
+  backdrop-filter: blur(4px);
+}
+
+// Action Buttons
+.btn-gradient {
+  background: $primary-gradient;
+  border: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(75, 170, 0, 0.35);
+    color: white;
+  }
+}
+
+.btn-outline-gradient {
+  border: 1.5px solid #4BAA00;
+  color: #4BAA00;
+  background: white;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #f1ffed;
+    color: #2e7d32;
+    border-color: #77FE0D;
+  }
+}
+
+.description-text {
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// Mobile Breakpoints
+@media (max-width: 767px) {
+  .event-banner {
+    height: 180px;
+  }
+}

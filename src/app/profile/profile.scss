@@ -1,53 +1,53 @@
-/* The Dotted Upload Box */
-.upload-box {
-  border: 2px dashed #dce0e4; /* Light grey dashed border */
-  border-radius: 12px;
-  min-height: 250px;
-  background-color: #fcfcfc;
-  position: relative;
-  transition: all 0.3s ease;
+// /* The Dotted Upload Box */
+// .upload-box {
+//   border: 2px dashed #dce0e4; /* Light grey dashed border */
+//   border-radius: 12px;
+//   min-height: 250px;
+//   background-color: #fcfcfc;
+//   position: relative;
+//   transition: all 0.3s ease;
 
-  &:hover {
-    border-color: #ff914d; /* Orange on hover */
-    background-color: #fffaf7;
-  }
-}
+//   &:hover {
+//     border-color: #ff914d; /* Orange on hover */
+//     background-color: #fffaf7;
+//   }
+// }
 
-/* The File Input (Hidden but clickable via the box) */
-.file-input {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  cursor: pointer;
-}
+// /* The File Input (Hidden but clickable via the box) */
+// .file-input {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   opacity: 0;
+//   cursor: pointer;
+// }
 
-/* Icon Circle inside upload box */
-.icon-circle {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+// /* Icon Circle inside upload box */
+// .icon-circle {
+//   width: 60px;
+//   height: 60px;
+//   border-radius: 50%;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
 
-/* Input Fields Styling */
-.form-control, .form-select, .input-group-text {
-  border: 1px solid #eee;
-  padding: 10px 15px;
-  font-size: 0.95rem;
-}
+// /* Input Fields Styling */
+// .form-control, .form-select, .input-group-text {
+//   border: 1px solid #eee;
+//   padding: 10px 15px;
+//   font-size: 0.95rem;
+// }
 
-.form-control:focus, .form-select:focus {
-  background-color: #fff !important;
-  border-color: #ff914d; /* Orange focus */
-  box-shadow: none;
-}
+// .form-control:focus, .form-select:focus {
+//   background-color: #fff !important;
+//   border-color: #ff914d; /* Orange focus */
+//   box-shadow: none;
+// }
 
-/* Remove default borders between icon and input to make them look like one piece */
-.input-group-text {
-  background-color: #f8f9fa; /* Light grey */
-}
+// /* Remove default borders between icon and input to make them look like one piece */
+// .input-group-text {
+//   background-color: #f8f9fa; /* Light grey */
+// }

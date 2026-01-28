@@ -1,63 +1,98 @@
 <div class="container-fluid p-0">
-  
-  <div class="bg-white p-3 rounded mb-4 shadow-sm">
-    <button class="btn btn-light rounded-circle me-3" (click)="goBack()"><i class="bi bi-arrow-left"></i></button>
+  <div class="bg-white p-3 rounded-4 mb-4 shadow-sm d-flex align-items-center border-0">
+    <button class="btn btn-light rounded-circle shadow-sm me-3 back-btn" (click)="goBack()">
+      <i class="bi bi-arrow-left"></i>
+    </button>
     <span class="fw-bold fs-5">{{ isEditMode ? 'Edit E-Riksha Route' : 'Create New Route' }}</span>
   </div>
 
-  <div class="card border-0 shadow-sm p-5" style="border-radius: 15px;">
-    
+  <div class="card border-0 shadow-sm p-4 p-md-5 rounded-4">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       
       <div class="mb-4">
-        <label class="fw-bold mb-2">Route Name</label>
-        <input type="text" formControlName="name" class="form-control bg-light" placeholder="e.g. Route A - Main City Loop">
+        <label class="fw-bold mb-2 text-muted small text-uppercase tracking-wider">Route name</label>
+        <input type="text" formControlName="name" 
+               class="form-control bg-light rounded-3 border-0 py-2" 
+               [class.is-invalid]="form.get('name')?.touched && form.get('name')?.invalid"
+               placeholder="e.g; Route - A Main city loop">
+        @if (form.get('name')?.touched && form.get('name')?.errors?.['required']) {
+          <div class="invalid-feedback ps-1">Route name is required.</div>
+        }
       </div>
 
       <div class="mb-4">
-        <label class="fw-bold mb-2">Service Available Time</label>
-        <input type="text" formControlName="serviceTime" class="form-control bg-light" placeholder="00:00 to 00:00">
+        <label class="fw-bold mb-2 text-muted small text-uppercase tracking-wider">Service Available Time</label>
+        <input type="text" formControlName="serviceTime" 
+               class="form-control bg-light rounded-3 border-0 py-2" 
+               [class.is-invalid]="form.get('serviceTime')?.touched && form.get('serviceTime')?.invalid"
+               placeholder="07:00 AM to 11:00 PM">
+        @if (form.get('serviceTime')?.touched && form.get('serviceTime')?.errors?.['required']) {
+          <div class="invalid-feedback ps-1">Service timing is required.</div>
+        }
       </div>
 
-      <div class="row mb-4">
-        <div class="col-md-6">
-          <label class="fw-bold mb-2">Operating Days</label>
-          <input type="text" formControlName="operatingDays" class="form-control bg-light">
+      <div class="row g-4 mb-4">
+        <div class="col-12 col-md-6">
+          <label class="fw-bold mb-2 text-muted small text-uppercase tracking-wider">Operating Days</label>
+          <input type="text" formControlName="operatingDays" 
+                 class="form-control bg-light rounded-3 border-0 py-2" 
+                 [class.is-invalid]="form.get('operatingDays')?.touched && form.get('operatingDays')?.invalid">
+          @if (form.get('operatingDays')?.touched && form.get('operatingDays')?.errors?.['required']) {
+            <div class="invalid-feedback ps-1">Please specify operating days.</div>
+          }
         </div>
-        <div class="col-md-6">
-          <label class="fw-bold mb-2">Frequency</label>
-          <input type="text" formControlName="frequency" class="form-control bg-light">
+        <div class="col-12 col-md-6">
+          <label class="fw-bold mb-2 text-muted small text-uppercase tracking-wider">Frequency</label>
+          <input type="text" formControlName="frequency" 
+                 class="form-control bg-light rounded-3 border-0 py-2" 
+                 [class.is-invalid]="form.get('frequency')?.touched && form.get('frequency')?.invalid">
+          @if (form.get('frequency')?.touched && form.get('frequency')?.errors?.['required']) {
+            <div class="invalid-feedback ps-1">Frequency is required (e.g., Every 10 mins).</div>
+          }
         </div>
       </div>
 
       <div class="mb-4">
         <div class="d-flex justify-content-between align-items-center mb-2">
-           <label class="fw-bold">Pickup & Drop points</label>
-           <button type="button" (click)="addStop()" class="btn btn-link text-orange text-decoration-none fw-bold">
-             <i class="bi bi-plus-circle me-1"></i> Add point
-           </button>
+          <label class="fw-bold text-muted small text-uppercase tracking-wider">Pickup & Drop points</label>
+          <button type="button" (click)="addStop()" class="btn btn-link text-orange text-decoration-none fw-bold p-0">
+            <i class="bi bi-plus-circle me-1"></i> Add point
+          </button>
         </div>
 
-        <div formArrayName="stops">
+        <div formArrayName="stops" class="d-flex flex-column gap-3">
           @for (control of stopsArray.controls; track $index) {
-            <div class="input-group mb-2">
-              <input [formControlName]="$index" type="text" class="form-control bg-light" [placeholder]="'Pickup point ' + ($index + 1)">
-              <button type="button" (click)="removeStop($index)" class="btn btn-outline-danger">
-                <i class="bi bi-x-lg"></i>
-              </button>
+            <div class="d-flex flex-column gap-1">
+              <div class="d-flex align-items-center gap-2">
+                <input [formControlName]="$index" type="text" 
+                       class="form-control bg-light rounded-3 border-0 py-2" 
+                       [class.is-invalid]="control.touched && control.invalid"
+                       [placeholder]="'Pickup point -' + ($index + 1)">
+                <button type="button" (click)="removeStop($index)" class="btn btn-outline-danger border-2 rounded-3 p-2 remove-btn">
+                  <i class="bi bi-x-lg"></i>
+                </button>
+              </div>
+              @if (control.touched && control.errors?.['required']) {
+                <small class="text-danger ps-1" style="font-size: 0.75rem;">Stop name cannot be empty.</small>
+              }
             </div>
           }
         </div>
+  
       </div>
 
-      <div class="text-end mt-5">
-        <button type="button" (click)="goBack()" class="btn btn-outline-secondary rounded-pill px-4 me-2">Cancel</button>
-        <button type="submit" class="btn btn-success rounded-pill px-5">
+      <div class="text-center text-md-end mt-5 pt-3 d-flex flex-column flex-md-row justify-content-md-end gap-2">
+        <button type="button" (click)="goBack()" 
+                class="btn btn-outline-secondary rounded-pill px-5 py-2 fw-bold border-secondary-subtle order-2 order-md-1">
+          Cancel
+        </button>
+        <button type="submit" 
+                [disabled]="form.invalid || stopsArray.length < 2"
+                class="btn btn-gradient rounded-pill px-5 py-2 fw-bold text-white shadow order-1 order-md-2">
           {{ isEditMode ? 'Update Route' : 'Create Route' }}
         </button>
       </div>
 
     </form>
-
   </div>
 </div>

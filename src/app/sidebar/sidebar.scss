@@ -2,9 +2,9 @@
 $sidebar-width: 280px;
 $sidebar-collapsed-width: 80px;
 $orange-gradient: linear-gradient(180deg, #F89756 0%, #F89756 100%);
+$active-green-gradient: linear-gradient(180deg, #77FE0D 0%, #4BAA00 100%);
 $anim-speed: 0.3s;
 
-/* --- DESKTOP STYLES (Default) --- */
 .sidebar-container {
   width: $sidebar-width;
   height: 100vh;
@@ -17,114 +17,74 @@ $anim-speed: 0.3s;
   overflow: hidden;
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 1050;
 
-  /* Collapsed State (Desktop) */
   &.collapsed {
     width: $sidebar-collapsed-width;
-
-    .nav-link {
-      justify-content: center;
-    }
-
-    .logo-section {
-      padding: 0.5rem !important;
-    }
-
-    .logo-text,
-    .link-text {
-      display: none;
-    }
+    .nav-link { justify-content: center; }
+    .logo-text, .link-text { display: none; }
   }
 }
 
-/* --- MOBILE SPECIFIC STYLES --- */
-@media (max-width: 768px) {
-  .sidebar-container {
-    /* 1. Default State: HIDDEN ("nan") */
-    position: fixed;
-    left: -100px;
-    /* Push off screen */
-    width: $sidebar-collapsed-width;
-    /* Mobile is always narrow (Icon only) */
-    opacity: 0;
-    visibility: hidden;
-  }
-
-  /* 2. Open State: SHOW ICON ONLY */
-  .sidebar-container.mobile-show {
-    left: 0;
-    opacity: 1;
-    visibility: visible;
-    /* Force collapse styles even if isCollapsed signal is false */
-    width: $sidebar-collapsed-width !important;
-  }
-
-  /* Force elements to look "collapsed" on mobile */
-  .sidebar-container.mobile-show {
-
-    .link-text,
-    .logo-text {
-      display: none !important;
-    }
-
-    .nav-link {
-      justify-content: center;
-    }
-
-    .logo-section {
-      justify-content: center;
-    }
-  }
-}
-
-/* --- COMMON STYLES --- */
-.logo-section {
-  transition: all $anim-speed;
-  white-space: nowrap;
-}
+.text-orange { color: #F89756; }
 
 .nav-link {
   font-size: 0.95rem;
   padding: 12px 15px;
-  border-radius: 8px;
+  border-radius: 12px;
   color: white;
-  transition: background-color 0.2s;
-
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-  }
+  transition: all 0.2s ease;
+  &:hover { background-color: rgba(255, 255, 255, 0.15); }
 }
 
+/* Active Link with Figma Green Gradient */
 .active-link {
-  background-color: #6bc940 !important;
+  background: $active-green-gradient !important;
   color: white !important;
-  font-weight: bold;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(75, 170, 0, 0.3);
+  
+  .icon-fixed { color: white; }
 }
 
 .icon-fixed {
-  font-size: 1.2rem;
-  min-width: 30px;
+  font-size: 1.25rem;
+  min-width: 32px;
   text-align: center;
-  /* Add margin only if text exists */
-  margin-right: 0;
 }
 
-/* Add margin back only on Desktop when Expanded */
 @media (min-width: 769px) {
-  .sidebar-container:not(.collapsed) .icon-fixed {
-    margin-right: 10px;
+  .sidebar-container:not(.collapsed) .icon-fixed { margin-right: 12px; }
+}
+
+/* Mobile Responsive logic */
+@media (max-width: 768px) {
+  .sidebar-container {
+    position: fixed;
+    left: -100%;
+    width: $sidebar-width; // Full width on mobile for better visibility
+    opacity: 0;
+    visibility: hidden;
+    
+    &.mobile-show {
+      left: 0;
+      opacity: 1;
+      visibility: visible;
+      width: $sidebar-width !important; // Override desktop collapse on mobile
+      
+      .link-text, .logo-text { display: inline-block !important; }
+      .nav-link { justify-content: flex-start; }
+    }
   }
 }
 
-/* Mobile Backdrop (Dark background when menu is open) */
 .mobile-backdrop {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 1040;
 }

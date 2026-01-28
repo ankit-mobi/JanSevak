@@ -2,43 +2,42 @@
   
   <app-sidebar #sidebarRef></app-sidebar>
 
-  <div class="d-flex flex-column flex-grow-1" style="min-height: 100vh;">
+  <div class="d-flex flex-column flex-grow-1 min-vh-100">
     
-    <header class="d-flex justify-content-between align-items-center p-4 bg-white sticky-top">
+    <header class="d-flex justify-content-between align-items-center p-4 bg-white sticky-top shadow-sm border-bottom">
       
       <div class="d-flex align-items-center gap-3">
-        
         <button 
-          class="btn btn-light d-md-none text-orange border-0 shadow-sm" 
+          class="btn btn-light d-md-none text-orange border-0 shadow-sm rounded-3" 
           (click)="sidebarRef.toggleMobile()">
           <i class="bi bi-list fs-4"></i>
         </button>
 
-        <h3 class="fw-bold text-orange m-0">Mission Smart Viman Nagar</h3>
+        <h3 class="fw-bold text-orange m-0 title-responsive">Mission Smart Viman Nagar</h3>
       </div>
       
       <div class="d-flex align-items-center gap-3">
         
-        <div class="text-muted fw-bold text-orange d-none d-sm-block">
-          <i class="bi bi-calendar me-1 text-orange"></i>
-          {{ currentDate | date: 'dd/MM/yyyy' }}
+        <div class="date-badge p-2 px-3 d-none d-sm-flex align-items-center gap-2 rounded-3">
+          <i class="bi bi-calendar text-orange"></i>
+          <span class="fw-bold text-orange small">{{ currentDate | date: 'dd/MM/yyyy' }}</span>
         </div>
 
-        <button class="btn btn-light rounded-circle shadow-sm position-relative">
-          <i class="bi bi-bell"></i>
-          <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+        <button class="btn btn-light rounded-circle shadow-sm position-relative icon-btn">
+          <i class="bi bi-bell fs-5"></i>
         </button>
 
-        <a routerLink="/profile" class="d-inline-block">
-           <img src="https://ui-avatars.com/api/?name=Admin" class="rounded-circle border" width="40" height="40">
+        <a class="profile-link d-inline-block">  <!-- routerLink="/profile"  -->
+           <img src="https://ui-avatars.com/api/?name=Admin" class="rounded-circle border-orange shadow-sm avatar-img" alt="Admin Avatar">
         </a>
 
       </div>
     </header>
 
-    <div class="p-4 bg-light flex-grow-1">
+    <main class="p-3 p-md-4 bg-dashboard-light flex-grow-1">
       <router-outlet></router-outlet> 
-    </div>
+    </main>
 
   </div>
 </div>
+

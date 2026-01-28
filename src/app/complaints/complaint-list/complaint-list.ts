@@ -9,28 +9,31 @@ import { RouterLink } from '@angular/router';
   templateUrl: './complaint-list.html',
   styleUrl: './complaint-list.scss',
 })
-export class ComplaintList {
+
+export class ComplaintList implements OnInit {
+
 private complaintService = inject(ComplaintService);
 
-allComplaints: Complaint[] = []; //Holds ALL data from API
-filteredComplaints = signal<Complaint[]>([]); //Holds only the data currently visible
-currentFilter = signal<string>('All');  //Track active filter button styling
+allComplaints: Complaint[] = [];
+  filteredComplaints = signal<Complaint[]>([]);
+  currentFilter = signal<string>('All');
 
 ngOnInit() {
     this.complaintService.getComplaints().subscribe(data => {
       this.allComplaints = data;
-      this.filteredComplaints.set(data); // Show all by default
+      this.filteredComplaints.set(data);
     });
   }
 
 
   // Filter Logic
-  filterBy(status: string) {
+ filterBy(status: string) {
     this.currentFilter.set(status);
 
     if (status === 'All') {
       this.filteredComplaints.set(this.allComplaints);
     } else {
+      // The service now guarantees "Inprogress" matches "Inprogress"
       const filtered = this.allComplaints.filter(c => c.status === status);
       this.filteredComplaints.set(filtered);
     }
@@ -40,8 +43,9 @@ ngOnInit() {
   // helper for badge colors
   getStatusColor(status: string): string {
     switch(status) {
-      case 'Completed': return 'bg-success-subtle text-success';
-      case 'In-Progress': return 'bg-warning-subtle text-warning';
+      case 'Completed': return 'bg-success-subtle text-success';   
+      case 'Resolved': return 'bg-success-subtle text-success';
+      case 'Inprogress': return 'bg-warning-subtle text-warning';
       case 'Pending': return 'bg-danger-subtle text-danger';
       default: return 'bg-light text-dark';
     }

@@ -61,7 +61,7 @@ loadRouteData(id: string) {
         // Note: If data is actually an array at runtime, grab the first item:
         // const routeData = Array.isArray(data) ? data[0] : data;
         const routeData = data; 
-
+        
         this.form.patchValue({
           name: routeData.routeName,
           serviceTime: routeData.serviceTimings,

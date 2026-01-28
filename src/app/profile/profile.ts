@@ -12,16 +12,16 @@ export class Profile {
 
   private location = inject(Location);
 
-  profile = {
-    name: '',
-    email: '',
-    phone: '',
-    bio: ''
-  };
+  // profile = {
+  //   name: '',
+  //   email: '',
+  //   phone: '',
+  //   bio: ''
+  // };
 
 
-  goBack() {
-    this.location.back();
-  }
+  // goBack() {
+  //   this.location.back();
+  // }
 
 }

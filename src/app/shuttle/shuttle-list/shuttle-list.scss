@@ -1,0 +1,61 @@
+// Brand Colors & Gradients
+$primary-gradient: linear-gradient(180deg, #77FE0D 0%, #4BAA00 100%);
+$stop-bg: #fdf2e9; // Matching your Figma's light orange/yellow stops
+$stop-text: #8a5e3b;
+
+// Reusable Gradient Button
+.btn-gradient {
+  background: $primary-gradient;
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-weight: 600;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(75, 170, 0, 0.3);
+    color: white;
+  }
+}
+
+// Custom Status Pill
+.status-pill {
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-block;
+
+  &.status-active {
+    background-color: #e9f9ee;
+    color: #24a148;
+    border: 1px solid #c3e6cb;
+  }
+}
+
+// Stop Points Badges
+.stop-badge {
+  background-color: $stop-bg;
+  color: $stop-text;
+  border: 1px solid darken($stop-bg, 5%);
+  font-size: 0.9rem;
+}
+
+// Card and ID Badge styling
+.rounded-4 {
+  border-radius: 1.25rem !important; // 20px
+}
+
+.tracking-wider {
+  letter-spacing: 0.05em;
+}
+
+// Responsive adjustments
+@media (max-width: 767.98px) {
+  .border-start {
+    border-start: none !important;
+    padding-left: 0 !important;
+  }
+  
+  .btn-gradient {
+    width: 100%; // Stack buttons on mobile
+    margin-bottom: 0.5rem;
+  }
+}
