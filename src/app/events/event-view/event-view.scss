@@ -1,70 +1,80 @@
-// Brand Colors & Gradients
 $primary-gradient: linear-gradient(180deg, #77FE0D 0%, #4BAA00 100%);
-$text-orange: #ff6b35;
+$text-orange: #f8904a;
 
 .text-orange { color: $text-orange; }
-.rounded-4 { border-radius: 1.25rem !important; }
 
-// Image Section
-.event-banner-img {
-  height: 350px;
+.page-content {
+  height: calc(100vh - 120px); // Adjust based on your top navbar height
 }
 
-// Custom Elements
-.back-btn {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.main-details-card {
+  max-height: 100%;
+  overflow-y: auto; // Only scroll inside the card if content is huge
+}
+
+.event-banner-img {
+  height: 250px; // Reduced height to prevent page scrolling
+  width: 100%;
+}
+
+.id-badge {
+  background-color: #FCEEF5;
+  color: #9B51E0;
+  font-size: 0.75rem;
+  font-weight: 600;
 }
 
 .status-active-pill {
-  background-color: #e9f9ee;
-  color: #24a148;
-  font-weight: 600;
+  background-color: #E6F7EF;
+  color: #24A148;
+  font-weight: 500;
+  font-size: 0.75rem;
+}
+
+.label-text {
+  font-size: 0.75rem;
+  margin-bottom: -2px;
+}
+
+.info-value {
   font-size: 0.85rem;
-  border: 1px solid #c3e6cb;
-}
-
-.icon-box {
-  width: 42px;
-  height: 42px;
-  background: #fff5f0;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-}
-
-.small-label {
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
+  font-weight: 500;
 }
 
 .description-text {
-  line-height: 1.7;
-  max-width: 900px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #6c757d;
 }
 
-// Action Button Styling
 .btn-gradient {
   background: $primary-gradient;
   border: none;
-  transition: transform 0.2s, box-shadow 0.2s;
+  font-size: 0.85rem;
+}
+
+.btn-outline-custom {
+  border: 1px solid #ced4da;
+  color: #6c757d;
+  background: transparent;
+  font-size: 0.85rem;
   
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(75, 170, 0, 0.4) !important;
-    color: white;
+    background: #f8f9fa;
   }
 }
 
-// Responsive Breakpoints
+.back-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #eee;
+}
+
 @media (max-width: 768px) {
   .event-banner-img {
-    height: 220px;
+    height: 180px;
   }
 }

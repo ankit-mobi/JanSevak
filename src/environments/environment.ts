@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    apiUrl: 'http://192.168.1.22:3000/api'
+    apiUrl: 'https://api.mobicloudtechnologies.com/jansevak-cms-api'
 }

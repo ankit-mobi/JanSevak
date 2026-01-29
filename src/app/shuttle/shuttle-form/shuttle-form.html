@@ -21,15 +21,31 @@
       </div>
 
       <div class="mb-4">
-        <label class="fw-bold mb-2 text-muted small text-uppercase tracking-wider">Service Available Time</label>
-        <input type="text" formControlName="serviceTime" 
-               class="form-control bg-light rounded-3 border-0 py-2" 
-               [class.is-invalid]="form.get('serviceTime')?.touched && form.get('serviceTime')?.invalid"
-               placeholder="07:00 AM to 11:00 PM">
-        @if (form.get('serviceTime')?.touched && form.get('serviceTime')?.errors?.['required']) {
-          <div class="invalid-feedback ps-1">Service timing is required.</div>
-        }
-      </div>
+  <label class="fw-bold mb-2 text-muted small text-uppercase tracking-wider">
+    Service Available Time
+  </label>
+
+  <div class="d-flex gap-2">
+    
+    <input type="time"
+           formControlName="fromTime"
+           class="form-control bg-light rounded-3 border-0 py-2">
+
+    <span class="align-self-center fw-bold">to</span>
+
+    <input type="time"
+           formControlName="toTime"
+           class="form-control bg-light rounded-3 border-0 py-2">
+  </div>
+
+  @if ((form.get('fromTime')?.touched && form.get('fromTime')?.invalid)
+     || (form.get('toTime')?.touched && form.get('toTime')?.invalid)) {
+    <div class="invalid-feedback d-block ps-1">
+      Service timing is required.
+    </div>
+  }
+</div>
+
 
       <div class="row g-4 mb-4">
         <div class="col-12 col-md-6">

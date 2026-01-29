@@ -57,7 +57,7 @@ $bg-light: #f8f9fa;
     background: $primary-orange;
     color: white;
     padding: 15px;
-  }
+  }   
 }
 
 .schedule-item {
@@ -73,22 +73,76 @@ $bg-light: #f8f9fa;
 .badge-id {
   background: #fdf2e9;
   color: #8a5e3b;
-  padding: 8px 15px;
-  border-radius: 12px;
+  padding: 6px 12px;
+  border-radius: 10px;
   font-weight: 600;
+  font-family: monospace; // Keeps IDs aligned
+  font-size: 0.75rem;      // Slightly smaller for long IDs
+  line-height: 1.2;
+  max-width: 120px;       // Prevents it from taking too much space on desktop
+  word-break: break-all;   // Forces long IDs to wrap if necessary
+  display: inline-block;
+
+  &.full-id {
+    // If you want it to look like a small tag but show everything
+    min-width: 60px;
+  }
+}
+
+@media (max-width: 576px) {
+  .badge-id {
+    font-size: 0.65rem;
+    max-width: 80px;      // Limits width on very small screens
+    padding: 4px 8px;
+  }
+  .recent-item {
+    // Allows the complaint info and status to stack slightly better
+    padding: 12px !important;
+  }
 }
 
 .status-pill {
-  padding: 6px 18px;
+  padding: 6px 14px;
   border-radius: 10px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
+  white-space: nowrap;
   
-  &.status-completed {
+  &.status-Resolved {
     background: #e9f9ee;
     color: #24a148;
   }
+
+  &.status-inprogress {
+    background: #fffcf0;
+    color: #ffc107;
+  }
+
+  &.status-pending {
+    background: #fff5f4;
+    color: #dc3545;
+  }
 }
+
+@media (max-width: 767px) {
+  .stat-card {
+    padding: 15px;
+    h2 { font-size: 1.5rem; }
+    .icon-circle { width: 40px; height: 40px; font-size: 1rem; }
+  }
+}
+
+@media (max-width: 450px) {
+  .recent-item {
+  min-width: 0; // Crucial for text-truncate to work inside flex
+  transition: transform 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+}
+
 
 /* Responsive Fixes */
 @media (max-width: 576px) {
@@ -122,3 +176,52 @@ $bg-light: #f8f9fa;
     border-left: 4px solid #cc5500;
   }
 }
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  text-align: center;
+
+  .grid-header {
+    font-size: 12px;
+    font-weight: bold;
+    padding-bottom: 8px;
+  }
+
+  .grid-day {
+    padding: 8px 0;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 8px;
+    position: relative;
+    transition: 0.2s;
+
+    &:hover { background: #fff5ee; color: #ff6b00; }
+    
+    &.not-current { opacity: 0.3; }
+    
+    &.today { color: #ff6b00; font-weight: bold; }
+    
+    &.selected {
+      background: #ff6b00 !important;
+      color: white !important;
+    }
+
+    .event-dot {
+      position: absolute;
+      bottom: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 4px;
+      background: #ff6b00;
+      border-radius: 50%;
+    }
+    
+    &.selected .event-dot { background: white; }
+  }
+}
+
+.cursor-pointer { cursor: pointer; }

@@ -49,7 +49,7 @@ $primary-gradient: linear-gradient(180deg, #77FE0D 0%, #4BAA00 100%);
     font-weight: 600;
 
     // Status colors based on Figma logic
-    &.completed {
+    &.Resolved {
         background-color: #e9f9ee;
         color: #24a148;
     }

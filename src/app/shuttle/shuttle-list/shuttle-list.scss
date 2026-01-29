@@ -1,61 +1,64 @@
-// Brand Colors & Gradients
-$primary-gradient: linear-gradient(180deg, #77FE0D 0%, #4BAA00 100%);
-$stop-bg: #fdf2e9; // Matching your Figma's light orange/yellow stops
-$stop-text: #8a5e3b;
+// Figma Colors
+$figma-green: #77FE0D;
+$figma-dark-green: #4BAA00;
+$figma-active-bg: #E8FCD6;
+$figma-active-text: #66CC00;
+$figma-orange-bg: #FFF4E5;
+$figma-orange-text: #D98D26;
+$light-grey-bg: #F1F1F1;
 
-// Reusable Gradient Button
-.btn-gradient {
-  background: $primary-gradient;
-  transition: transform 0.2s, box-shadow 0.2s;
+// General Utilities
+.rounded-4 { border-radius: 1.25rem !important; }
+
+// ID Badge (Grey)
+.badge-route-id {
+  background-color: $light-grey-bg;
+  color: #888;
   font-weight: 600;
+  font-size: 0.9rem;
+}
 
+// Neon Green Buttons
+.btn-add, .btn-view, .btn-edit {
+  background: linear-gradient(180deg, $figma-green 0%, $figma-dark-green 100%);
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+  
   &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(75, 170, 0, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(119, 254, 13, 0.4);
+    opacity: 0.9;
     color: white;
   }
 }
 
-// Custom Status Pill
-.status-pill {
+// Figma Specific Active Status
+.status-pill-active {
+  background-color: $figma-active-bg;
+  color: $figma-active-text;
   border-radius: 50px;
+  font-weight: 700;
   font-size: 0.85rem;
-  font-weight: 600;
-  display: inline-block;
-
-  &.status-active {
-    background-color: #e9f9ee;
-    color: #24a148;
-    border: 1px solid #c3e6cb;
-  }
 }
 
-// Stop Points Badges
+// Orange Stop Badges
 .stop-badge {
-  background-color: $stop-bg;
-  color: $stop-text;
-  border: 1px solid darken($stop-bg, 5%);
-  font-size: 0.9rem;
+  background-color: $figma-orange-bg;
+  color: $figma-orange-text;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border: 1px solid rgba($figma-orange-text, 0.1);
 }
 
-// Card and ID Badge styling
-.rounded-4 {
-  border-radius: 1.25rem !important; // 20px
-}
-
-.tracking-wider {
-  letter-spacing: 0.05em;
-}
-
-// Responsive adjustments
-@media (max-width: 767.98px) {
-  .border-start {
-    border-start: none !important;
-    padding-left: 0 !important;
+// Responsive stacking for buttons
+@media (max-width: 576px) {
+  .btn-add, .btn-view, .btn-edit {
+    width: 100%;
   }
   
-  .btn-gradient {
-    width: 100%; // Stack buttons on mobile
-    margin-bottom: 0.5rem;
+  .d-flex.justify-content-between {
+    flex-direction: column;
+    gap: 10px;
   }
 }

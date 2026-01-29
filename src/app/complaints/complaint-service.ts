@@ -13,7 +13,7 @@ export interface Complaint {
   description: string;
   reporter: string;
   contact: string;
-  status: 'Pending' | 'Inprogress' | 'Completed' | 'Resolved'; 
+  status: 'Pending' | 'Inprogress' | 'Resolved'; 
   image: string;
   resolvedPhoto?: string; 
 }
@@ -79,7 +79,7 @@ export class ComplaintService {
     const formData = new FormData();
     formData.append('_id', id);
     let backendStatus = status.toLowerCase();
-    if (backendStatus === 'completed') backendStatus = 'resolved';
+    // if (backendStatus === 'completed') backendStatus = 'resolved';
     
     formData.append('status', backendStatus);
     if (backendStatus === 'resolved' && file) {
@@ -94,7 +94,7 @@ export class ComplaintService {
 private formatStatus(status: string): string {
     if (!status) return 'Pending';
     const lower = status.toLowerCase();
-    if (lower === 'resolved') return 'Completed';
+    if (lower === 'resolved') return 'Resolved';
     if (lower === 'inprogress') return 'Inprogress';
     return lower.charAt(0).toUpperCase() + lower.slice(1);
   }

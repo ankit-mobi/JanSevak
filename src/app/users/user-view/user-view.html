@@ -1,95 +1,127 @@
 @if (isLoading()) {
-  <div class="text-center p-5">
+  <div class="loading-container">
     <div class="spinner-border text-primary" role="status"></div>
     <p class="mt-2 text-muted">Loading user profile...</p>
   </div>
 } 
 @else if (user(); as u) {
-  <div class="container-fluid p-0">
+  <div class="container-fluid profile-container">
 
-    <div class="bg-white p-3 rounded mb-4 shadow-sm d-flex align-items-center">
-      <button class="btn btn-light rounded-circle me-3 shadow-sm" (click)="goBack()">
+    <div class="bg-white p-2 p-sm-3 rounded-4 mb-3 mb-md-4 shadow-sm d-flex align-items-center border-0">
+      <button class="btn btn-light rounded-circle me-2 me-sm-3 shadow-sm back-btn" (click)="goBack()">
         <i class="bi bi-arrow-left"></i>
       </button>
-      <span class="fw-bold fs-5">User Details</span>
+      <span class="fw-bold fs-6 fs-sm-5">User Details</span>
     </div>
 
-    <div class="row g-4">
-      
-      <div class="col-md-4">
-        <div class="card border-0 shadow-sm p-4 text-center h-100" style="border-radius: 15px;">
-          <img [src]="u.avatar || 'assets/default-avatar.png'" class="rounded-circle mx-auto mb-3 border p-1" width="100" height="100">
-          <h5 class="fw-bold mb-1 text-dark">{{ u.name }}</h5>
-          <p class="text-muted small">{{ u.email }}</p>
-          <span class="badge bg-light text-secondary border mb-3">UID: {{ u.uid | slice:0:10 }}...</span>
+    <div class="row g-3 g-md-4">
+      <div class="col-12 col-md-5 col-lg-4">
+        <div class="card profile-card border-0 shadow-sm p-3 p-sm-4 text-center h-100">
+          <div class="avatar-wrapper mx-auto mb-3">
+            <img [src]="u.avatar || 'assets/default-avatar.png'" class="rounded-circle border p-1 profile-img" width="90" height="90">
+          </div>
+          <h5 class="fw-bold mb-1 text-dark text-truncate">{{ u.name }}</h5>
+          <p class="text-muted small text-truncate px-2">{{ u.email }}</p>
           
-          <div class="text-start mt-3 pt-3 border-top">
-            <p class="small text-muted mb-2"><i class="bi bi-calendar me-2"></i>Registered: <span class="text-dark">{{ u.createdAt | date:'mediumDate' }}</span></p>
-            <p class="small text-muted mb-0"><i class="bi bi-shield-lock me-2"></i>Provider: <span class="text-dark">{{ u.provider | titlecase }}</span></p>
+          <div class="px-3">
+            <span class="badge bg-light text-secondary border mb-3 uid-badge w-100 py-2">UID: {{ u.uid }}</span>
+          </div>
+          
+          <div class="text-start mt-2 mt-sm-3 pt-3 border-top w-100">
+            <div class="info-row mb-2">
+              <i class="bi bi-calendar text-orange"></i>
+              <div class="ms-2">
+                <small class="text-muted d-block label-xs">Registered</small>
+                <span class="text-dark fw-medium small">{{ u.createdAt | date:'dd-MM-yyyy' }}</span>
+              </div>
+            </div>
+            <div class="info-row">
+              <i class="bi bi-shield-lock text-orange"></i>
+              <div class="ms-2">
+                <small class="text-muted d-block label-xs">Provider</small>
+                <span class="text-dark fw-medium small">{{ u.provider | titlecase }}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="col-md-8">
-        
-        <div class="card border-0 shadow-sm p-4 mb-4" style="border-radius: 15px;">
+      <div class="col-12 col-md-7 col-lg-8">
+        <div class="card info-card border-0 shadow-sm p-3 p-sm-4 mb-3 mb-md-4">
           <h6 class="fw-bold mb-3 text-dark">Registered Roles</h6>
-          <div class="d-flex flex-wrap gap-3">
+          <div class="role-grid">
             @for (role of u.roles; track role) {
-              <div class="d-flex align-items-center p-3 rounded border bg-light" style="min-width: 150px;">
-                <div class="icon-box bg-white text-success rounded-circle p-2 me-3 shadow-sm">
-                  <i class="bi bi-person-badge fs-5"></i>
+              <div class="role-item">
+                <div class="icon-box bg-white text-success rounded-circle shadow-sm">
+                  <i class="bi bi-person-badge"></i>
                 </div>
-                <div>
-                  <small class="text-muted d-block text-uppercase" style="font-size: 0.7rem;">Role</small>
-                  <span class="fw-bold text-dark">{{ role }}</span>
+                <div class="text-truncate">
+                  <small class="role-label text-muted d-block">ROLE</small>
+                  <span class="fw-bold text-dark small text-uppercase">{{ role }}</span>
                 </div>
               </div>
             } @empty {
-              <p class="text-muted fst-italic">No additional roles assigned (Citizen only).</p>
+              <p class="text-muted fst-italic small m-0 text-center py-2">Citizen only</p>
             }
           </div>
         </div>
 
-        <div class="card border-0 shadow-sm p-4" style="border-radius: 15px;">
+        <div class="card info-card border-0 shadow-sm p-3 p-sm-4">
           <div class="d-flex justify-content-between align-items-center mb-3">
              <h6 class="fw-bold m-0 text-dark">Complaint History</h6>
-             <span class="badge bg-light text-dark">{{ u.complaints.length }} Total</span>
+             <span class="badge bg-light text-dark border-0 shadow-sm complaint-count">{{ u.complaints.length }}</span>
           </div>
           
-          <div class="table-responsive">
+          <div class="table-responsive d-none d-sm-block">
             <table class="table align-middle mb-0">
                <thead class="bg-light">
-                 <tr>
-                   <th class="border-0 ps-3 rounded-start text-secondary small text-uppercase">Title</th>
-                   <th class="border-0 text-secondary small text-uppercase">Date</th>
-                   <th class="border-0 rounded-end text-secondary small text-uppercase">Status</th>
+                 <tr class="small text-muted text-uppercase">
+                   <th class="border-0 ps-3">Title</th>
+                   <th class="border-0">Date</th>
+                   <th class="border-0 text-end">Status</th>
                  </tr>
                </thead>
                <tbody>
                  @for (c of u.complaints; track c) {
                    <tr>
-                     <td class="ps-3 fw-bold text-dark">{{ c.title }}</td>
-                     <td class="text-muted small">{{ c.date }}</td>
-                     <td>
-                       <span class="badge rounded-pill px-3" 
+                     <td class="ps-3 fw-bold text-dark small text-nowrap">{{ c.title }}</td>
+                     <td class="text-muted small">{{ c.date | date:'dd-MM-yyyy' }}</td>
+                     <td class="text-end">
+                       <span class="badge rounded-pill px-3 py-2 status-badge" 
                              [class.bg-warning-subtle]="c.status === 'Pending'"
                              [class.text-warning]="c.status === 'Pending'"
                              [class.bg-info-subtle]="c.status === 'In-Progress'"
                              [class.text-info]="c.status === 'In-Progress'"
-                             [class.bg-success-subtle]="c.status === 'Completed'"
-                             [class.text-success]="c.status === 'Completed'">
-                         {{ c.status }}
-                       </span>
+                             [class.bg-success-subtle]="c.status === 'Resolved'"
+                             [class.text-success]="c.status === 'Resolved'">{{ c.status }}</span>
                      </td>
                    </tr>
-                 } @empty {
-                   <tr><td colspan="3" class="text-center text-muted py-5">No complaints found for this user.</td></tr>
                  }
                </tbody>
             </table>
           </div>
 
+          <div class="d-block d-sm-none">
+            @for (c of u.complaints; track c) {
+              <div class="complaint-mobile-item p-2 mb-2 border-bottom">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="fw-bold text-dark small">{{ c.title }}</span>
+                  <span class="small text-muted mobile-date-text">{{ c.date | date:'dd-MM-yy' }}</span>
+                </div>
+                <div class="mt-1">
+                   <small class="fw-bold" [ngClass]="{
+                     'text-warning': c.status === 'Pending',
+                     'text-info': c.status === 'In-Progress',
+                     'text-success': c.status === 'Resolved'
+                   }">
+                     ● {{ c.status }}
+                   </small>
+                </div>
+              </div>
+            } @empty {
+              <div class="text-center py-4 text-muted small">No complaints found.</div>
+            }
+          </div>
         </div>
 
       </div>

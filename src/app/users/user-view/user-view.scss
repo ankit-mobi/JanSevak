@@ -1,0 +1,132 @@
+$rounded-val: 15px;
+$primary-color: #4BAA00;
+$text-orange: #fd7e14;
+
+.profile-container {
+  padding: 0.5rem; // Equivalent to p-2
+  @media (min-width: 768px) {
+    padding: 1.5rem; // Equivalent to p-md-4
+  }
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.profile-card, .info-card {
+  border-radius: $rounded-val !important;
+}
+
+.back-btn {
+  border-radius: 50% !important;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @media (min-width: 576px) {
+    width: 40px; 
+    height: 40px;
+  }
+}
+
+.uid-badge {
+  font-family: 'Courier New', monospace;
+  font-size: 0.7rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  i { 
+    font-size: 1.1rem; 
+    width: 20px; 
+  }
+  .text-orange {
+    color: $text-orange !important;
+  }
+}
+
+.label-xs {
+  font-size: 0.65rem;
+}
+
+// Adaptive Role Grid
+.role-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+  width: 100%;
+  
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.role-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  background: #fcfcfc;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  min-width: 0; // Ensures text-truncate works in grid
+  
+  .icon-box {
+    width: 35px; 
+    height: 35px;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    margin-right: 12px;
+    flex-shrink: 0;
+    i { font-size: 1.2rem; }
+  }
+  
+  .role-label {
+    font-size: 0.6rem;
+    letter-spacing: 1px;
+    margin-bottom: -2px;
+  }
+}
+
+// Table/Status Adjustments
+.status-badge {
+  font-size: 0.65rem;
+  letter-spacing: 0.3px;
+}
+
+.mobile-date-text {
+  font-size: 0.7rem;
+}
+
+.complaint-mobile-item {
+  &:last-child { 
+    border-bottom: none !important; 
+  }
+}
+
+// Media Queries for all device sizes
+@media (max-width: 767.98px) {
+  .profile-card {
+    height: auto !important;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .avatar-wrapper img {
+    width: 70px; 
+    height: 70px;
+  }
+  h5 { font-size: 1rem; }
+  .role-item { padding: 8px; }
+}

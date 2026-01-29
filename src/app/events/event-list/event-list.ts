@@ -20,8 +20,18 @@ export class EventList implements OnInit {
   loadEvents() {
     this.eventService.getEvents().subscribe({
       next: (data) => {
-        console.log('Events Loaded:', data);
-        this.events.set(data);
+        const today = new Date();
+
+        today.setHours(0, 0, 0, 0);
+
+        const activeEvents = data.filter(event => {
+          const eventEndDate = new Date(event.endDate);
+
+          return eventEndDate >= today;
+        });
+
+        
+        this.events.set(activeEvents);
       },
       error: (err) => console.error('Failed to load events', err)
     });

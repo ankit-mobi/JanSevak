@@ -24,54 +24,60 @@
       <a routerLink="/dashboard" 
          routerLinkActive="active-link" 
          [routerLinkActiveOptions]="{exact: true}"
+         (click)="onLinkClick()"
          class="nav-link text-white mb-2 d-flex align-items-center" 
          title="Dashboard">
         <i class="bi bi-grid-fill icon-fixed"></i>
-        @if (!isCollapsed()) { <span class="link-text">Dashboard</span> } 
+        @if (!isCollapsed() || showMobileMenu()) { <span class="link-text">Dashboard</span> } 
       </a>
     </li>
 
     <li class="nav-item">
       <a routerLink="/complaints" 
          routerLinkActive="active-link" 
+         (click)="onLinkClick()"
          class="nav-link text-white mb-2 d-flex align-items-center" 
          title="Complaint Management">
         <i class="bi bi-file-earmark-text icon-fixed"></i> 
-        @if (!isCollapsed()) { <span class="link-text">Complaint Management</span> } 
+        @if (!isCollapsed() || showMobileMenu()) { <span class="link-text">Complaint Management</span> } 
       </a>
     </li>
 
     <li class="nav-item"> 
       <a routerLink="/shuttle"
          routerLinkActive="active-link" 
+         (click)="onLinkClick()"
          class="nav-link text-white mb-2 d-flex align-items-center"
          title="E-Riksha Shuttle"> 
         <i class="bi bi-bus-front icon-fixed"></i> 
-        @if (!isCollapsed()) { <span class="link-text">E-Riksha Shuttle</span> } 
+        @if (!isCollapsed() || showMobileMenu()) { <span class="link-text">E-Riksha Shuttle</span> } 
       </a> 
     </li>
     
     <li class="nav-item"> 
       <a routerLink="/events"
          routerLinkActive="active-link" 
+         (click)="onLinkClick()"
          class="nav-link text-white mb-2 d-flex align-items-center" 
          title="Events"> 
         <i class="bi bi-calendar-event icon-fixed"></i> 
-        @if (!isCollapsed()) { <span class="link-text">Events Management</span> } 
+        @if (!isCollapsed() || showMobileMenu()) { <span class="link-text">Events Management</span> } 
       </a> 
     </li>
     
     <li class="nav-item"> 
       <a routerLink="/users"
          routerLinkActive="active-link" 
+         (click)="onLinkClick()"
          class="nav-link text-white mb-2 d-flex align-items-center"
          title="User Management"> 
         <i class="bi bi-people icon-fixed"></i> 
-        @if (!isCollapsed()) { <span class="link-text">User Management</span> } 
+        @if (!isCollapsed() || showMobileMenu()) { <span class="link-text">User Management</span> } 
       </a> 
     </li>
-    
-    <!-- <li class="nav-item"> 
+
+
+     <!-- <li class="nav-item"> 
       <a href="#" class="nav-link text-white mb-2 d-flex align-items-center" title="Report"> 
         <i class="bi bi-megaphone icon-fixed"></i> 
         @if (!isCollapsed()) { <span class="link-text">Report</span> } 
@@ -81,9 +87,9 @@
 
   <div class="mt-auto">
     <hr class="bg-white opacity-25"> 
-    <a href="javascript:void(0)" (click)="logout()" class="nav-link text-white d-flex align-items-center logout-link" title="Logout"> 
+    <a href="javascript:void(0)" (click)="logout()" class="nav-link text-white d-flex align-items-center logout-link"> 
       <i class="bi bi-box-arrow-right icon-fixed"></i> 
-      @if (!isCollapsed()) { <span class="link-text">Logout</span> } 
+      @if (!isCollapsed() || showMobileMenu()) { <span class="link-text">Logout</span> } 
     </a>
   </div>
 </div>

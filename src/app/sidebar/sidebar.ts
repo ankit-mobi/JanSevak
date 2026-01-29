@@ -28,4 +28,11 @@ logout(){
   this.router.navigate(['/login']);
 }
 
+onLinkClick() {
+  // If we are on a small screen, close the mobile menu after clicking a link
+  if (window.innerWidth <= 768) {
+    this.showMobileMenu.set(false); // or however you update your state
+  }
+}
+
 }

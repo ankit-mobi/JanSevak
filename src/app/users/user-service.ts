@@ -100,7 +100,7 @@ export class UserService {
     return this.http.get<{status: number, data: any[]}>(`${this.regUrl}/alljobseekers`).pipe(
       map(res => res.data.map(j => ({
         _id: j._id,
-        uid: j.user, // <--- FIX: Map 'user' -> 'uid'
+        uid: j.user, 
         name: j.fullName,
         email: 'N/A',
         avatar: 'assets/default-avatar.png',
@@ -150,7 +150,7 @@ getUserDetails(uid: string) {
   private formatStatus(status: string): string {
     if (!status) return 'Pending';
     const lower = status.toLowerCase();
-    if (lower === 'resolved') return 'Completed'; // Match your UI color logic
+    if (lower === 'resolved') return 'Resolved'; // Match your UI color logic
     if (lower === 'inprogress') return 'In-Progress';
     return lower.charAt(0).toUpperCase() + lower.slice(1);
   }

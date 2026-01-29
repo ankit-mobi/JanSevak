@@ -27,13 +27,14 @@ export class ShuttleForm implements OnInit {
 
   constructor() {
     this.form = this.fb.group({
-      name: ['', Validators.required],
-      serviceTime: ['', Validators.required],
-      operatingDays: ['Everyday', Validators.required],
-      frequency: ['', Validators.required],
-      // This 'stops' array allows us to add infinite inputs
-      stops: this.fb.array([]) 
-    });
+  name: ['', Validators.required],
+  fromTime: ['', Validators.required],
+  toTime: ['', Validators.required],
+  operatingDays: ['Everyday', Validators.required],
+  frequency: ['', Validators.required],
+  stops: this.fb.array([])
+});
+
   }
 
   get stopsArray() {
@@ -63,11 +64,13 @@ loadRouteData(id: string) {
         const routeData = data; 
         
         this.form.patchValue({
-          name: routeData.routeName,
-          serviceTime: routeData.serviceTimings,
-          operatingDays: routeData.operationalDays,
-          frequency: routeData.frequency
-        });
+  name: routeData.routeName,
+  fromTime: routeData.serviceTimings?.split(' to ')[0],
+  toTime: routeData.serviceTimings?.split(' to ')[1],
+  operatingDays: routeData.operationalDays,
+  frequency: routeData.frequency
+});
+
 
         this.stopsArray.clear();
         // FIX: Add type '(stop: string)' to fix TS7006 error
@@ -79,25 +82,30 @@ loadRouteData(id: string) {
   }
 
   onSubmit() {
-    if (this.form.valid) {
-      const request = this.isEditMode && this.routeId 
-        ? this.shuttleService.updateRoute(this.routeId, this.form.value)
-        : this.shuttleService.createRoute(this.form.value);
+  if (this.form.valid) {
 
-      request.subscribe({
-        next: () => {
-          // 2. Call the success popup
-          this.showSuccessPopup();
-        },
-        error: (err) => {
-          console.error('Operation Failed', err);
-          Swal.fire('Error', 'Something went wrong!', 'error');
-        }
-      });
-    } else {
-      Swal.fire('Warning', 'Please fill all required fields', 'warning');
-    }
+    const payload = {
+      ...this.form.value,
+      serviceTime: `${this.form.value.fromTime} to ${this.form.value.toTime}`
+    };
+
+    delete payload.fromTime;
+    delete payload.toTime;
+
+    const request = this.isEditMode && this.routeId
+      ? this.shuttleService.updateRoute(this.routeId, payload)
+      : this.shuttleService.createRoute(payload);
+
+    request.subscribe({
+      next: () => this.showSuccessPopup(),
+      error: () => Swal.fire('Error', 'Something went wrong!', 'error')
+    });
+
+  } else {
+    Swal.fire('Warning', 'Please fill all required fields', 'warning');
   }
+}
+
 
   showSuccessPopup() {
     const actionText = this.isEditMode ? 'updated' : 'Created';

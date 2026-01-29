@@ -1,69 +1,86 @@
 // Brand Colors & Gradients
 $primary-gradient: linear-gradient(180deg, #77FE0D 0%, #4BAA00 100%);
 $text-orange: #ff6b35;
+$light-bg: #f8f9fa;
 
-.text-orange { color: $text-orange; }
+// Global Utilities
 .rounded-4 { border-radius: 1.25rem !important; }
+.extra-small { font-size: 0.75rem; color: #adb5bd; }
 
-// Image Handling
-.event-banner {
-  height: 200px;
+// Header Card
+.header-card {
+  border: 1px solid rgba(0,0,0,0.05);
+  h3 { font-size: 1.5rem; }
 }
 
-// Custom Badges
+// Card Styling
+.event-card {
+  transition: transform 0.2s ease;
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.event-banner {
+  height: 220px;
+}
+
+// Badges
 .status-pill.status-active {
-  background-color: #e9f9ee;
-  color: #24a148;
-  font-weight: 600;
+  background-color: #E6F7EF;
+  color: #24A148;
+  font-weight: 500;
   font-size: 0.8rem;
-  border-radius: 50px;
 }
 
 .id-badge {
-  background: rgba(255, 255, 255, 0.9);
-  color: #333;
-  font-size: 0.75rem;
+  background-color: #FCEEF5;
+  color: #9B51E0; // Based on Figma screenshot shades
+  font-size: 0.8rem;
   font-weight: 600;
-  backdrop-filter: blur(4px);
 }
 
-// Action Buttons
+// Buttons
 .btn-gradient {
   background: $primary-gradient;
   border: none;
-  transition: transform 0.2s, box-shadow 0.2s;
+  font-size: 0.9rem;
   
   &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(75, 170, 0, 0.35);
+    opacity: 0.9;
     color: white;
   }
 }
 
-.btn-outline-gradient {
-  border: 1.5px solid #4BAA00;
+.btn-outline-custom {
+  border: 1px solid #ced4da;
   color: #4BAA00;
   background: white;
-  transition: all 0.2s ease;
+  font-size: 0.9rem;
 
   &:hover {
-    background: #f1ffed;
-    color: #2e7d32;
-    border-color: #77FE0D;
+    background: #f8f9fa;
+    border-color: #4BAA00;
   }
 }
 
+// Text Clamp
 .description-text {
-  line-height: 1.5;
+  line-height: 1.4;
+  font-size: 0.85rem;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2; // Matches figma's cleaner 2-line description
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-// Mobile Breakpoints
-@media (max-width: 767px) {
+// Responsive
+@media (max-width: 768px) {
   .event-banner {
     height: 180px;
+  }
+  .header-card {
+    text-align: center;
+    justify-content: center !important;
   }
 }
