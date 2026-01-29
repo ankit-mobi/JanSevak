@@ -137,10 +137,9 @@ getUserDetails(uid: string) {
   getUserComplaints(uid: string) {
     return this.http.get<{status: number, data: any[]}>(`${this.adminUrl}/complaints/user/${uid}`).pipe(
       map(res => {
-        // Map backend complaint fields to UI fields
         return res.data.map(c => ({
-          title: c.complaintType,        // Map 'complaintType' -> 'title'
-          date: c.createdAt.split('T')[0], // Extract Date
+          title: c.complaintType,       
+          date: c.createdAt.split('T')[0], 
           status: this.formatStatus(c.status)
         })) as UserComplaint[];
       })
@@ -150,7 +149,7 @@ getUserDetails(uid: string) {
   private formatStatus(status: string): string {
     if (!status) return 'Pending';
     const lower = status.toLowerCase();
-    if (lower === 'resolved') return 'Resolved'; // Match your UI color logic
+    if (lower === 'resolved') return 'Resolved'; 
     if (lower === 'inprogress') return 'In-Progress';
     return lower.charAt(0).toUpperCase() + lower.slice(1);
   }

@@ -23,7 +23,7 @@ export interface AppEvent {
 export class EventService {
   private http = inject(HttpClient);
   private baseUrl = `${environment.apiUrl}/admin/events`;
-  private assetUrl = environment.apiUrl.replace('/api', '');
+  private assetUrl = environment.apiUrl.replace('/jansevak-cms-api/', '');
 
 
   private transformData(item: any): AppEvent {

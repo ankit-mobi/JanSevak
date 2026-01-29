@@ -41,9 +41,9 @@ interface BackendComplaint {
 
 export class ComplaintService {
 
-  private http = inject(HttpClient);
+  private http = inject(HttpClient);  
   private baseUrl = `${environment.apiUrl}/admin/complaints`;
-  private assetUrl = environment.apiUrl.replace('/api', '');
+  private assetUrl = environment.apiUrl.replace('/jansevak-cms-api/', '');
 
 
   private transformData(item: BackendComplaint): Complaint {
